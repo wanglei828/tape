@@ -4,5 +4,5 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/bazel.cma
 include(bazel)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-
-add_subdirectory(tape)
+add_subdirectory(paddle)
+#add_subdirectory(tape)
