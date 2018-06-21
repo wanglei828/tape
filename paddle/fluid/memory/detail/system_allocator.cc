@@ -187,7 +187,7 @@ void CUDAPinnedAllocator::Free(void* p, size_t size, size_t index) {
 
 bool CUDAPinnedAllocator::UseGpu() const { return false; }
 
-#endif
+#endif  // PADDLE_WITH_CUDA
 
 }  // namespace detail
 }  // namespace memory

@@ -44,8 +44,10 @@ limitations under the License. */
 #include "paddle/fluid/platform/dynload/cublas.h"
 #include "paddle/fluid/platform/dynload/cudnn.h"
 #include "paddle/fluid/platform/dynload/curand.h"
+#ifndef __APPLE__
 #include "paddle/fluid/platform/dynload/nccl.h"
-#endif
+#endif  // __APPLE__
+#endif  // PADDLE_WITH_CUDA
 
 namespace paddle {
 namespace platform {
@@ -84,12 +86,15 @@ struct EnforceNotMet : public std::exception {
           auto demangled = demangle(info.dli_sname);
           auto addr_offset = static_cast<char*>(call_stack[i]) -
                              static_cast<char*>(info.dli_saddr);
-          sout << string::Sprintf("%-3d %*0p %s + %zd\n", i,
-                                  2 + sizeof(void*) * 2, call_stack[i],
-                                  demangled, addr_offset);
+          sout << string::Sprintf("%-3d %*0p %s + %zd\n",
+                                  i,
+                                  2 + sizeof(void*) * 2,
+                                  call_stack[i],
+                                  demangled,
+                                  addr_offset);
         } else {
-          sout << string::Sprintf("%-3d %*0p\n", i, 2 + sizeof(void*) * 2,
-                                  call_stack[i]);
+          sout << string::Sprintf(
+              "%-3d %*0p\n", i, 2 + sizeof(void*) * 2, call_stack[i]);
         }
       }
       free(symbols);
@@ -121,8 +126,8 @@ template <typename... Args>
 inline typename std::enable_if<sizeof...(Args) != 0, void>::type throw_on_error(
     cudaError_t e, const Args&... args) {
   if (UNLIKELY(e)) {
-    throw thrust::system_error(e, thrust::cuda_category(),
-                               string::Sprintf(args...));
+    throw thrust::system_error(
+        e, thrust::cuda_category(), string::Sprintf(args...));
   }
 }
 
@@ -130,7 +135,8 @@ template <typename... Args>
 inline typename std::enable_if<sizeof...(Args) != 0, void>::type throw_on_error(
     curandStatus_t stat, const Args&... args) {
   if (stat != CURAND_STATUS_SUCCESS) {
-    throw thrust::system_error(cudaErrorLaunchFailure, thrust::cuda_category(),
+    throw thrust::system_error(cudaErrorLaunchFailure,
+                               thrust::cuda_category(),
                                string::Sprintf(args...));
   }
 }
@@ -174,6 +180,7 @@ inline typename std::enable_if<sizeof...(Args) != 0, void>::type throw_on_error(
   throw std::runtime_error(err + string::Sprintf(args...));
 }
 
+#ifndef __APPLE__
 template <typename... Args>
 inline typename std::enable_if<sizeof...(Args) != 0, void>::type throw_on_error(
     ncclResult_t stat, const Args&... args) {
@@ -184,7 +191,7 @@ inline typename std::enable_if<sizeof...(Args) != 0, void>::type throw_on_error(
                              string::Sprintf(args...));
   }
 }
-
+#endif  // __APPLE__
 #endif  // PADDLE_WITH_CUDA
 
 template <typename T>
@@ -197,17 +204,18 @@ inline void throw_on_error(T e) {
     throw ::paddle::platform::EnforceNotMet(                           \
         std::make_exception_ptr(                                       \
             std::runtime_error(paddle::string::Sprintf(__VA_ARGS__))), \
-        __FILE__, __LINE__);                                           \
+        __FILE__,                                                      \
+        __LINE__);                                                     \
   } while (false)
 
-#define PADDLE_ENFORCE(...)                                             \
-  do {                                                                  \
-    try {                                                               \
-      ::paddle::platform::throw_on_error(__VA_ARGS__);                  \
-    } catch (...) {                                                     \
-      throw ::paddle::platform::EnforceNotMet(std::current_exception(), \
-                                              __FILE__, __LINE__);      \
-    }                                                                   \
+#define PADDLE_ENFORCE(...)                              \
+  do {                                                   \
+    try {                                                \
+      ::paddle::platform::throw_on_error(__VA_ARGS__);   \
+    } catch (...) {                                      \
+      throw ::paddle::platform::EnforceNotMet(           \
+          std::current_exception(), __FILE__, __LINE__); \
+    }                                                    \
   } while (false)
 
 /*
@@ -243,15 +251,17 @@ inline void throw_on_error(T e) {
     }                                                        \
   } while (0)
 
-#define __PADDLE_BINARY_COMPARE(__VAL0, __VAL1, __CMP, __INV_CMP, ...)  \
-  do {                                                                  \
-    if (UNLIKELY(!((__VAL0)__CMP(__VAL1)))) {                           \
-      PADDLE_THROW("enforce %s " #__CMP " %s failed, %s " #__INV_CMP    \
-                   " %s\n%s",                                           \
-                   #__VAL0, #__VAL1, paddle::string::to_string(__VAL0), \
-                   paddle::string::to_string(__VAL1),                   \
-                   paddle::string::Sprintf("" __VA_ARGS__));            \
-    }                                                                   \
+#define __PADDLE_BINARY_COMPARE(__VAL0, __VAL1, __CMP, __INV_CMP, ...) \
+  do {                                                                 \
+    if (UNLIKELY(!((__VAL0)__CMP(__VAL1)))) {                          \
+      PADDLE_THROW("enforce %s " #__CMP " %s failed, %s " #__INV_CMP   \
+                   " %s\n%s",                                          \
+                   #__VAL0,                                            \
+                   #__VAL1,                                            \
+                   paddle::string::to_string(__VAL0),                  \
+                   paddle::string::to_string(__VAL1),                  \
+                   paddle::string::Sprintf("" __VA_ARGS__));           \
+    }                                                                  \
   } while (0)
 
 }  // namespace platform

@@ -1,6 +1,6 @@
 set(PADDLE_WITH_CUDA OFF)
 if(CUDA_FOUND)
-  set(PADDLE_WITH_CUDA ON)
+  add_definitions(-DPADDLE_WITH_CUDA)
   include_directories(${CUDA_TOOLKIT_ROOT_DIR}/include)
 endif(CUDA_FOUND)
 

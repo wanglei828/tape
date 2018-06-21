@@ -17,22 +17,22 @@ limitations under the License. */
 namespace paddle {
 namespace platform {
 
-static Place* the_current_place = new CPUPlace();
+static Place *the_current_place = new CPUPlace();
 
-bool operator==(const Place& p1, const Place& p2) {
+bool operator==(const Place &p1, const Place &p2) {
   return is_same_place(p1, p2);
 }
 
-bool operator!=(const Place& p1, const Place& p2) {
+bool operator!=(const Place &p1, const Place &p2) {
   return !is_same_place(p1, p2);
 }
 
-Place* clone_place(const Place& p) {
-  Place* r = nullptr;
+Place *clone_place(const Place &p) {
+  Place *r = nullptr;
   if (is_cpu_place(p))
     r = new CPUPlace();
   else if (is_gpu_place(p))
-    r = new CUDAPlace(dynamic_cast<const CUDAPlace&>(p).device);
+    r = new CUDAPlace(dynamic_cast<const CUDAPlace &>(p).device);
   else if (is_cuda_pinned_place(p))
     r = new CUDAPinnedPlace();
   return r;
@@ -50,18 +50,18 @@ const CPUPlace default_cpu() { return CPUPlace(); }
 const CUDAPinnedPlace default_cuda_pinned() { return CUDAPinnedPlace(); }
 
 bool is_gpu_place(const Place &p) {
-  return dynamic_cast<const CUDAPlace*>(&p) != nullptr;
+  return dynamic_cast<const CUDAPlace *>(&p) != nullptr;
 }
 
 bool is_cpu_place(const Place &p) {
-  return dynamic_cast<const CPUPlace*>(&p) != nullptr;
+  return dynamic_cast<const CPUPlace *>(&p) != nullptr;
 }
 
 bool is_cuda_pinned_place(const Place &p) {
-  return dynamic_cast<const CUDAPinnedPlace*>(&p) != nullptr;
+  return dynamic_cast<const CUDAPinnedPlace *>(&p) != nullptr;
 }
 
-int which_place(const Place& p) {
+int which_place(const Place &p) {
   int i = -1;
   if (is_cpu_place(p))
     i = 0;
@@ -78,19 +78,18 @@ bool places_are_same_class(const Place &p1, const Place &p2) {
 
 bool is_same_place(const Place &p1, const Place &p2) {
   if (places_are_same_class(p1, p2)) {
-   return is_cuda_pinned_place(p1)
-       ? dynamic_cast<const CUDAPlace&>(p1).device
-       == dynamic_cast<const CUDAPlace&>(p2).device
-       : true;
+    return is_gpu_place(p1) ? dynamic_cast<const CUDAPlace &>(p1).device ==
+                                  dynamic_cast<const CUDAPlace &>(p2).device
+                            : true;
   }
   return false;
 }
 
-std::ostream &operator<<(std::ostream & os, const Place & p) {
+std::ostream &operator<<(std::ostream &os, const Place &p) {
   if (is_cpu_place(p))
     os << "CPUPlace";
   else if (is_gpu_place(p))
-    os << "CUDAPlace(" << dynamic_cast<const CUDAPlace&>(p).device << ")";
+    os << "CUDAPlace(" << dynamic_cast<const CUDAPlace &>(p).device << ")";
   else if (is_cuda_pinned_place(p))
     os << "CUDAPinnedPlace";
   return os;
