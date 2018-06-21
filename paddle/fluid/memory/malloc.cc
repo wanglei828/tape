@@ -38,27 +38,6 @@ BuddyAllocator* GetCPUBuddyAllocator() {
   return a;
 }
 
-template <>
-void* Alloc<platform::CPUPlace>(platform::CPUPlace place, size_t size) {
-  VLOG(10) << "Allocate " << size << " bytes on " << platform::Place(place);
-  void* p = GetCPUBuddyAllocator()->Alloc(size);
-  VLOG(10) << "  pointer=" << p;
-  return p;
-}
-
-template <>
-void Free<platform::CPUPlace>(platform::CPUPlace place, void* p) {
-  VLOG(10) << "Free pointer=" << p << " on " << platform::Place(place);
-  GetCPUBuddyAllocator()->Free(p);
-}
-
-template <>
-size_t Used<platform::CPUPlace>(platform::CPUPlace place) {
-  return GetCPUBuddyAllocator()->Used();
-}
-
-#ifdef PADDLE_WITH_CUDA
-
 BuddyAllocator* GetGPUBuddyAllocator(int gpu_id) {
   static BuddyAllocator** as = NULL;
   if (as == NULL) {
@@ -83,30 +62,60 @@ BuddyAllocator* GetGPUBuddyAllocator(int gpu_id) {
   return as[gpu_id];
 }
 
+void* Alloc(const platform::Place& place, size_t size) {
+  void* ptr = nullptr;
+  
+  if (platform::is_cpu_place(place)) {
+    VLOG(10) << "Allocate " << size << " bytes on " << platform::Place(place);
+    ptr = GetCPUBuddyAllocator()->Alloc(size);
+    VLOG(10) << "  pointer=" << ptr;
+  } else if (platform::is_gpu_place(place)) {
+    auto* buddy_allocator = GetGPUBuddyAllocator(dynamic_cast<const platform::CUDAPlace&>(place).device);
+    ptr = buddy_allocator->Alloc(size);
+    if (ptr == nullptr) {
+      int cur_dev = platform::GetCurrentDeviceId();
+      platform::SetDeviceId(place.device);
+      size_t avail, total;
+      platform::GpuMemoryUsage(&avail, &total);
+      LOG(WARNING) << "Cannot allocate " << size << " bytes in GPU "
+                   << place.device << ", available " << avail << " bytes";
+      LOG(WARNING) << "total " << total;
+      LOG(WARNING) << "GpuMinChunkSize " << platform::GpuMinChunkSize();
+      LOG(WARNING) << "GpuMaxChunkSize " << platform::GpuMaxChunkSize();
+      LOG(WARNING) << "GPU memory used: " << Used<platform::CUDAPlace>(place);
+      platform::SetDeviceId(cur_dev);
+    } else if (platform::is_cuda_pinned_place(place)) {
+      auto* buddy_allocator = GetCUDAPinnedBuddyAllocator();
+      ptr = buddy_allocator->Alloc(size);
+      if (ptr == nullptr) {
+        LOG(WARNING) << "cudaMallocHost Cannot allocate " << size
+                     << " bytes in CUDAPinnedPlace";
+      }
+    }
+    
+    return ptr;
+}
+
+
+template <>
+void Free<platform::CPUPlace>(platform::CPUPlace place, void* p) {
+  VLOG(10) << "Free pointer=" << p << " on " << platform::Place(place);
+  GetCPUBuddyAllocator()->Free(p);
+}
+
+template <>
+size_t Used<platform::CPUPlace>(platform::CPUPlace place) {
+  return GetCPUBuddyAllocator()->Used();
+}
+
+#ifdef PADDLE_WITH_CUDA
+
+
 template <>
 size_t Used<platform::CUDAPlace>(platform::CUDAPlace place) {
   return GetGPUBuddyAllocator(place.device)->Used();
 }
 
-template <>
-void* Alloc<platform::CUDAPlace>(platform::CUDAPlace place, size_t size) {
-  auto* buddy_allocator = GetGPUBuddyAllocator(place.device);
-  auto* ptr = buddy_allocator->Alloc(size);
-  if (ptr == nullptr) {
-    int cur_dev = platform::GetCurrentDeviceId();
-    platform::SetDeviceId(place.device);
-    size_t avail, total;
-    platform::GpuMemoryUsage(&avail, &total);
-    LOG(WARNING) << "Cannot allocate " << size << " bytes in GPU "
-                 << place.device << ", available " << avail << " bytes";
-    LOG(WARNING) << "total " << total;
-    LOG(WARNING) << "GpuMinChunkSize " << platform::GpuMinChunkSize();
-    LOG(WARNING) << "GpuMaxChunkSize " << platform::GpuMaxChunkSize();
-    LOG(WARNING) << "GPU memory used: " << Used<platform::CUDAPlace>(place);
-    platform::SetDeviceId(cur_dev);
-  }
-  return ptr;
-}
 
 template <>
 void Free<platform::CUDAPlace>(platform::CUDAPlace place, void* p) {
@@ -128,18 +137,6 @@ size_t Used<platform::CUDAPinnedPlace>(platform::CUDAPinnedPlace place) {
   return GetCUDAPinnedBuddyAllocator()->Used();
 }
 
-template <>
-void* Alloc<platform::CUDAPinnedPlace>(platform::CUDAPinnedPlace place,
-                                       size_t size) {
-  auto* buddy_allocator = GetCUDAPinnedBuddyAllocator();
-  void* ptr = buddy_allocator->Alloc(size);
-
-  if (ptr == nullptr) {
-    LOG(WARNING) << "cudaMallocHost Cannot allocate " << size
-                 << " bytes in CUDAPinnedPlace";
-  }
-  return ptr;
-}
 
 template <>
 void Free<platform::CUDAPinnedPlace>(platform::CUDAPinnedPlace place, void* p) {

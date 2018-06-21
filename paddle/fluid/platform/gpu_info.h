@@ -14,8 +14,6 @@ limitations under the License. */
 
 #pragma once
 
-#ifdef PADDLE_WITH_CUDA
-
 #include <cuda_runtime.h>
 #include <stddef.h>
 #include <string>
@@ -74,5 +72,3 @@ void GpuMemsetAsync(void *dst, int value, size_t count, cudaStream_t stream);
 
 }  // namespace platform
 }  // namespace paddle
-
-#endif
