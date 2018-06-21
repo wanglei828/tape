@@ -6,6 +6,7 @@ include(bazel)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/external)
 include(snappy)
 include(snappystream)
+include(eigen3)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_subdirectory(paddle)

@@ -16,7 +16,7 @@
 
 #include <string>
 
-#include "paddle/fluid/common/enforce.h"
+#include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
 namespace recordio {
