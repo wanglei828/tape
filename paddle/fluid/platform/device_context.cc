@@ -47,7 +47,7 @@ DeviceContextPool::DeviceContextPool(
           p, PtrType(new MKLDNNDeviceContext(boost::get<CPUPlace>(p))));
 #else
       device_contexts_.emplace(
-          p, PtrType(new CPUDeviceContext(boost::get<CPUPlace>(p))));
+          p, PtrType(new CPUDeviceContext(dynamic_cast<const CPUPlace&>(p))));
 #endif
     } else if (platform::is_gpu_place(p)) {
 #ifdef PADDLE_WITH_CUDA

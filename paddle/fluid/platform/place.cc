@@ -19,6 +19,14 @@ namespace platform {
 
 static Place* the_current_place = new CPUPlace();
 
+bool operator==(const Place& p1, const Place& p2) {
+  return is_same_place(p1, p2);
+}
+
+bool operator!=(const Place& p1, const Place& p2) {
+  return !is_same_place(p1, p2);
+}
+
 Place* clone_place(const Place& p) {
   Place* r = nullptr;
   if (is_cpu_place(p))

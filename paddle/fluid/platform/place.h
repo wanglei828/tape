@@ -27,10 +27,6 @@ struct Place {
   
 struct CPUPlace : public Place {
   CPUPlace() {}
-
-  // needed for variant equality comparison
-  inline bool operator==(const CPUPlace &) const { return true; }
-  inline bool operator!=(const CPUPlace &) const { return false; }
 };
 
 struct CUDAPlace : public Place {
@@ -38,24 +34,17 @@ struct CUDAPlace : public Place {
   explicit CUDAPlace(int d) : device(d) {}
 
   inline int GetDeviceId() const { return device; }
-  // needed for variant equality comparison
-  inline bool operator==(const CUDAPlace &o) const {
-    return device == o.device;
-  }
-  inline bool operator!=(const CUDAPlace &o) const { return !(*this == o); }
-
   int device;
 };
 
 struct CUDAPinnedPlace : public Place {
   CUDAPinnedPlace() {}
-
-  // needed for variant equality comparison
-  inline bool operator==(const CUDAPinnedPlace &) const { return true; }
-  inline bool operator!=(const CUDAPinnedPlace &) const { return false; }
 };
 
-using PlaceList = std::vector<Place>;
+bool operator==(const Place&, const Place&);
+bool operator!=(const Place&, const Place&);
+
+using PlaceList = std::vector<Place>;  // TODO(yi): Remove it?
 
 void set_place(const Place &);
 const Place &get_place();

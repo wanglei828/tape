@@ -148,14 +148,16 @@ void Free<platform::CUDAPinnedPlace>(platform::CUDAPinnedPlace place, void* p) {
 #endif
 
 size_t memory_usage(const platform::Place& p) {
+  size_t r = 0;
   if (platform::is_cpu_place(p))
-    return Used<platform::CPUPlace>(dynamic_cast<const platform::CPUPlace&>(p));
+    r = Used<platform::CPUPlace>(dynamic_cast<const platform::CPUPlace&>(p));
   if (platform::is_gpu_place(p))
-    return Used<platform::CUDAPlace>(
+    r = Used<platform::CUDAPlace>(
         dynamic_cast<const platform::CUDAPlace&>(p));
   if (platform::is_cuda_pinned_place(p))
-    return Used<platform::CUDAPinnedPlace>(
+    r = Used<platform::CUDAPinnedPlace>(
         dynamic_cast<const platform::CUDAPinnedPlace&>(p));
+  return r;
 }
 
 }  // namespace memory
