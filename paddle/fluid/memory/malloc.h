@@ -32,7 +32,8 @@ namespace memory {
  *          function is invoked, you must check the returned memory
  *          address is valid or not.
  */
-void* Alloc(const platform::Place& place, size_t size);
+template <typename Place>
+void* Alloc(Place place, size_t size);
 
 /**
  * \brief   Free memory block in one place.
@@ -41,7 +42,8 @@ void* Alloc(const platform::Place& place, size_t size);
  * \param[in]  ptr    Memory block address to free.
  *
  */
-void Free(const platform::Place& place, void* ptr);
+template <typename Place>
+void Free(Place place, void* ptr);
 
 /**
  * \brief   Total size of used memory in one place.
@@ -49,7 +51,14 @@ void Free(const platform::Place& place, void* ptr);
  * \param[in]  place  Allocation place (CPU or GPU).
  *
  */
-size_t Used(const platform::Place& place);
+template <typename Place>
+size_t Used(Place place);
+
+struct Usage : public boost::static_visitor<size_t> {
+  size_t operator()(const platform::CPUPlace& cpu) const;
+  size_t operator()(const platform::CUDAPlace& gpu) const;
+  size_t operator()(const platform::CUDAPinnedPlace& cuda_pinned) const;
+};
 
 size_t memory_usage(const platform::Place& p);
 
@@ -61,16 +70,16 @@ size_t memory_usage(const platform::Place& p);
  *          std::unique_ptr<T> in tensor.h.
  *
  */
-template <typename T>
+template <typename T, typename Place>
 class PODDeleter {
   static_assert(std::is_pod<T>::value, "T must be POD");
 
  public:
-  explicit PODDeleter(const platform::Place& place) : place_(place) {}
+  explicit PODDeleter(Place place) : place_(place) {}
   void operator()(T* ptr) { Free(place_, static_cast<void*>(ptr)); }
 
  private:
-  const platform::Place& place_;
+  Place place_;
 };
 
 /**
@@ -81,14 +90,14 @@ class PODDeleter {
  *          std::unique_ptr<T> in tensor.h.
  *
  */
-template <typename T>
+template <typename T, typename Place>
 class PlainDeleter {
  public:
-  explicit PlainDeleter(const platform::Place& place) : place_(place) {}
+  explicit PlainDeleter(Place place) : place_(place) {}
   void operator()(T* ptr) { Free(place_, reinterpret_cast<void*>(ptr)); }
 
  private:
-  const platform::Place place_;
+  Place place_;
 };
 
 }  // namespace memory

@@ -7,6 +7,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ext
 include(snappy)
 include(snappystream)
 include(eigen3)
+include(boost)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_subdirectory(paddle)
