@@ -1,4 +1,4 @@
-cc_library(header SRCS header.cc)
+cc_library(header SRCS header.cc DEPS enforce)
 cc_test(header_test SRCS header_test.cc DEPS header gtest)
 cc_library(chunk SRCS chunk.cc DEPS snappystream snappy header zlib)
 cc_test(chunk_test SRCS chunk_test.cc DEPS chunk gtest)
