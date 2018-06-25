@@ -1,8 +1,12 @@
 language: cpp
+cache:
+  directories:
+    - $HOME/.ccache
+    - $TRAVIS_BUILD_DIR/build/third_party
 os: osx
 osx_image: xcode9
 script:
-    - mkdir build
+    - if [ ! -d "build" ]; then mkdir build; fi
     - cd build
     - cmake -DWITH_GPU=OFF ..
     - make -j2
