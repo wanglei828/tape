@@ -1,5 +1,7 @@
 # Dynamic Graph on Fluid
 
+[![Build Status](https://travis-ci.org/PaddlePaddle/tape.svg?branch=develop)](https://travis-ci.org/PaddlePaddle/tape)
+
 PaddlePaddle Fluid is targeting the autodiff without tape, which, however, is very
 challenging and we are still way from there. DyNet and PyTorch provide a good design
 idea, the *tape*, that significantly eases the challenge.  Also, DyNet provides
