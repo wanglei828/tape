@@ -35,4 +35,4 @@ cc_library(device_context SRCS device_context.cc DEPS malloc
 nv_test(device_context_test SRCS device_context_test.cu DEPS device_context gpu_info gtest)
 
 nv_test(cudnn_helper_test SRCS cudnn_helper_test.cc DEPS dynload_cuda cudnn gtest)
-cc_test(transform_test SRCS transform_test.cu DEPS memory place device_context gtest)
+nv_test(transform_test SRCS transform_test.cu DEPS memory place device_context gtest)

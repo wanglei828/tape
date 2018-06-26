@@ -19,7 +19,7 @@ set(BOOST_VERSION       "1.67.0")
 
 if((NOT DEFINED BOOST_TAR) OR (NOT DEFINED BOOST_URL))
   set(BOOST_TAR "boost_1_67_0" CACHE STRING "" FORCE)
-  set(BOOST_URL "https://dl.bintray.com/boostorg/release/${BOOST_VERSION}/source/${BOOST_TAR}.tar.bz2" CACHE STRING "" FORCE)
+  set(BOOST_URL "https://dl.bintray.com/boostorg/release/${BOOST_VERSION}/source/${BOOST_TAR}.tar.gz" CACHE STRING "" FORCE)
 endif()
 
 set(BOOST_SOURCES_DIR ${BAZEL_THIRD_PARTY_DIR}/boost)
