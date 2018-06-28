@@ -20,8 +20,8 @@ limitations under the License. */
 #include "gtest/gtest.h"
 
 TEST(Event, CpuElapsedTime) {
-  using paddle::platform::Event;
-  using paddle::platform::EventType;
+  using paddle::fluid::platform::Event;
+  using paddle::fluid::platform::EventType;
 
   Event start_event(EventType::kPushRange, "test", 0, nullptr);
   EXPECT_TRUE(start_event.has_cuda() == false);
@@ -35,11 +35,11 @@ TEST(Event, CpuElapsedTime) {
 
 #ifdef PADDLE_WITH_CUDA
 TEST(Event, CudaElapsedTime) {
-  using paddle::platform::DeviceContext;
-  using paddle::platform::CUDADeviceContext;
-  using paddle::platform::CUDAPlace;
-  using paddle::platform::Event;
-  using paddle::platform::EventType;
+  using paddle::fluid::platform::DeviceContext;
+  using paddle::fluid::platform::CUDADeviceContext;
+  using paddle::fluid::platform::CUDAPlace;
+  using paddle::fluid::platform::Event;
+  using paddle::fluid::platform::EventType;
 
   DeviceContext* dev_ctx = new CUDADeviceContext(CUDAPlace(0));
   Event start_event(EventType::kPushRange, "test", 0, dev_ctx);
@@ -54,21 +54,21 @@ TEST(Event, CudaElapsedTime) {
 #endif
 
 TEST(RecordEvent, RecordEvent) {
-  using paddle::platform::DeviceContext;
-  using paddle::platform::Event;
-  using paddle::platform::EventType;
-  using paddle::platform::RecordEvent;
-  using paddle::platform::ProfilerState;
-  using paddle::platform::EventSortingKey;
+  using paddle::fluid::platform::DeviceContext;
+  using paddle::fluid::platform::Event;
+  using paddle::fluid::platform::EventType;
+  using paddle::fluid::platform::RecordEvent;
+  using paddle::fluid::platform::ProfilerState;
+  using paddle::fluid::platform::EventSortingKey;
 
   ProfilerState state = ProfilerState::kCPU;
   DeviceContext* dev_ctx = nullptr;
 #ifdef PADDLE_WITH_CUDA
-  using paddle::platform::CUDADeviceContext;
-  using paddle::platform::CUDAPlace;
+  using paddle::fluid::platform::CUDADeviceContext;
+  using paddle::fluid::platform::CUDAPlace;
   state = ProfilerState::kCUDA;
   dev_ctx =
-      new paddle::platform::CUDADeviceContext(paddle::platform::CUDAPlace(0));
+      new paddle::fluid::platform::CUDADeviceContext(paddle::fluid::platform::CUDAPlace(0));
 #endif
   EnableProfiler(state);
 
@@ -137,7 +137,7 @@ TEST(RecordEvent, RecordEvent) {
   // Bad Usage:
   PushEvent("event_without_pop", dev_ctx);
   PopEvent("event_without_push", dev_ctx);
-  std::vector<std::vector<Event>> events = paddle::platform::GetAllEvents();
+  std::vector<std::vector<Event>> events = paddle::fluid::platform::GetAllEvents();
 
   int cuda_startup_count = 0;
   int start_profiler_count = 0;

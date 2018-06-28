@@ -32,6 +32,7 @@ limitations under the License. */
 #include "glog/logging.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 class DeviceContext {
@@ -196,4 +197,5 @@ class DeviceContextPool {
 };
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

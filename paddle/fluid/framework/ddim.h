@@ -22,6 +22,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/variant.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 /**
@@ -128,12 +129,13 @@ DDim stride(const DDim& ddim);
 
 DDim stride_numel(const DDim& ddim);
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle
 
 namespace boost {
 
 template <typename T>
-T get(const paddle::framework::DDim& in) {
+T get(const paddle::fluid::framework::DDim& in) {
   return boost::get<T>(in.var);
 }
 

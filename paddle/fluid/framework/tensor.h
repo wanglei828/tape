@@ -28,7 +28,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/place.h"
 
 namespace paddle {
-
+namespace fluid {
 namespace framework {
 
 class Tensor {
@@ -231,6 +231,7 @@ class Tensor {
 };
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle
 
 #include "paddle/fluid/framework/tensor_impl.h"

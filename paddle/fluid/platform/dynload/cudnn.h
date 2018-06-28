@@ -20,6 +20,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/dynload/dynamic_loader.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -36,7 +37,7 @@ extern void EnforceCUDNNLoaded(const char* fn_name);
     auto operator()(Args... args) -> decltype(__name(args...)) {           \
       using cudnn_func = decltype(&::__name);                              \
       std::call_once(cudnn_dso_flag, []() {                                \
-        cudnn_dso_handle = paddle::platform::dynload::GetCUDNNDsoHandle(); \
+        cudnn_dso_handle = paddle::fluid::platform::dynload::GetCUDNNDsoHandle(); \
       });                                                                  \
       EnforceCUDNNLoaded(#__name);                                         \
       static void* p_##__name = dlsym(cudnn_dso_handle, #__name);          \
@@ -147,4 +148,5 @@ CUDNN_DNN_ROUTINE_EACH_R7(DECLARE_DYNAMIC_LOAD_CUDNN_WRAP)
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

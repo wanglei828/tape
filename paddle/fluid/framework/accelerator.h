@@ -17,6 +17,7 @@ limitations under the License. */
 #include <string>
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 // For more details about the design of Accelerator, Please refer to
@@ -38,4 +39,5 @@ class Accelerator {
 std::ostream& operator<<(std::ostream& out, Accelerator l);
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

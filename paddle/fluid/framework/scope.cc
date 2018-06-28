@@ -31,6 +31,7 @@ DEFINE_bool(
     "slow down the destruction of variables.(around 1% performance harm)");
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 Scope::~Scope() { DropKids(); }
@@ -161,4 +162,5 @@ Variable* Scope::FindVarLocally(const std::string& name) const {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

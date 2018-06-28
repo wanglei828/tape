@@ -18,6 +18,7 @@ limitations under the License. */
 #include <typeindex>
 
 namespace paddle {
+namespace fluid {
 namespace string {
 inline std::ostream& operator<<(std::ostream& s, const std::type_index& t) {
   s << t.name();
@@ -48,4 +49,5 @@ inline std::string to_string(const char* v) {
 }
 
 }  // namespace string
+}  // namespace fluid
 }  // namespace paddle

@@ -19,6 +19,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/profiler.pb.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 ///////////////////////
@@ -104,4 +105,5 @@ void SetCurThread(int thread_id);
 void ClearCurThread();
 int CurThread();
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

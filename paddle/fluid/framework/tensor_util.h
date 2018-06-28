@@ -21,6 +21,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/device_context.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 void TensorCopy(const Tensor& src, const platform::Place& dst_place,
@@ -130,4 +131,5 @@ void TensorToVector(const Tensor& src, std::vector<T>* dst) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

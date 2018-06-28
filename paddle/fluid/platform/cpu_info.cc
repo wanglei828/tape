@@ -44,6 +44,7 @@ DEFINE_double(
     "reserve the rest for page tables, etc");
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 inline size_t CpuTotalPhysicalMemory() {
@@ -99,4 +100,5 @@ size_t CUDAPinnedMaxChunkSize() {
 }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

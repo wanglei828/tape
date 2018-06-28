@@ -28,6 +28,7 @@ limitations under the License. */
 #include "paddle/fluid/recordio/writer.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 std::ostream &operator<<(std::ostream &os, const LoD &lod) {
@@ -448,4 +449,5 @@ LoD ConvertToOffsetBasedLoD(const LoD &length_lod) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

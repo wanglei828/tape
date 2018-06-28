@@ -19,6 +19,7 @@
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace recordio {
 
 Header::Header()
@@ -67,4 +68,5 @@ bool operator==(Header l, Header r) {
 }
 
 }  // namespace recordio
+}  // namespace fluid
 }  // namespace paddle

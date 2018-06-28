@@ -24,6 +24,7 @@
 #include "glog/logging.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 // Vector<T> implements the std::vector interface, and can get Data or
@@ -380,4 +381,5 @@ class Vector {
 };
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

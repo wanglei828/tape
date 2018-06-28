@@ -17,6 +17,7 @@ limitations under the License. */
 #include "paddle/fluid/memory/memory.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 DeviceContextPool* DeviceContextPool::pool_ = nullptr;
@@ -108,11 +109,11 @@ class EigenCudaStreamDevice : public Eigen::StreamInterface {
   }
 
   void* allocate(size_t num_bytes) const override {
-    return paddle::memory::Alloc(place_, num_bytes);
+    return paddle::fluid::memory::Alloc(place_, num_bytes);
   }
 
   void deallocate(void* buffer) const override {
-    paddle::memory::Free(place_, buffer);
+    paddle::fluid::memory::Free(place_, buffer);
   }
 
   void* scratchpad() const override {
@@ -274,4 +275,5 @@ DeviceContextPool* DeviceContextPool::Init() {
 }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

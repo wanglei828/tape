@@ -18,6 +18,7 @@
 #include "paddle/fluid/platform/place.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 static __global__ void FillNAN(float* buf) {
@@ -45,8 +46,8 @@ static __global__ void FillInf(platform::float16* buf) {
 }
 
 TEST(TensorContainsNAN, GPU) {
-  paddle::platform::CUDAPlace gpu(0);
-  auto& pool = paddle::platform::DeviceContextPool::Instance();
+  paddle::fluid::platform::CUDAPlace gpu(0);
+  auto& pool = paddle::fluid::platform::DeviceContextPool::Instance();
   auto* cuda_ctx = pool.GetByPlace(gpu);
   {
     Tensor tensor;
@@ -57,8 +58,8 @@ TEST(TensorContainsNAN, GPU) {
   }
   {
     Tensor tensor;
-    paddle::platform::float16* buf =
-        tensor.mutable_data<paddle::platform::float16>({3}, gpu);
+    paddle::fluid::platform::float16* buf =
+        tensor.mutable_data<paddle::fluid::platform::float16>({3}, gpu);
     FillNAN<<<1, 1, 0, cuda_ctx->stream()>>>(buf);
     cuda_ctx->Wait();
     ASSERT_TRUE(TensorContainsNAN(tensor));
@@ -66,8 +67,8 @@ TEST(TensorContainsNAN, GPU) {
 }
 
 TEST(TensorContainsInf, GPU) {
-  paddle::platform::CUDAPlace gpu(0);
-  auto& pool = paddle::platform::DeviceContextPool::Instance();
+  paddle::fluid::platform::CUDAPlace gpu(0);
+  auto& pool = paddle::fluid::platform::DeviceContextPool::Instance();
   auto* cuda_ctx = pool.GetByPlace(gpu);
   {
     Tensor tensor;
@@ -78,8 +79,8 @@ TEST(TensorContainsInf, GPU) {
   }
   {
     Tensor tensor;
-    paddle::platform::float16* buf =
-        tensor.mutable_data<paddle::platform::float16>({3}, gpu);
+    paddle::fluid::platform::float16* buf =
+        tensor.mutable_data<paddle::fluid::platform::float16>({3}, gpu);
     FillInf<<<1, 1, 0, cuda_ctx->stream()>>>(buf);
     cuda_ctx->Wait();
     ASSERT_TRUE(TensorContainsInf(tensor));
@@ -87,4 +88,5 @@ TEST(TensorContainsInf, GPU) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

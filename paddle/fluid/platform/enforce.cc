@@ -15,5 +15,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {}  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

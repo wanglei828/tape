@@ -23,8 +23,8 @@ TEST(WriterScanner, Normal) {
   std::stringstream* stream = new std::stringstream();
 
   {
-    paddle::recordio::Writer writer(stream,
-                                    paddle::recordio::Compressor::kSnappy);
+    paddle::fluid::recordio::Writer writer(stream,
+                                    paddle::fluid::recordio::Compressor::kSnappy);
     writer.Write("ABC");
     writer.Write("BCD");
     writer.Write("CDE");
@@ -34,7 +34,7 @@ TEST(WriterScanner, Normal) {
   {
     stream->seekg(0, std::ios::beg);
     std::unique_ptr<std::istream> stream_ptr(stream);
-    paddle::recordio::Scanner scanner(std::move(stream_ptr));
+    paddle::fluid::recordio::Scanner scanner(std::move(stream_ptr));
     ASSERT_TRUE(scanner.HasNext());
     ASSERT_EQ(scanner.Next(), "ABC");
     ASSERT_EQ("BCD", scanner.Next());
@@ -47,8 +47,8 @@ TEST(WriterScanner, Normal) {
 TEST(WriterScanner, TinyChunk) {
   std::stringstream* stream = new std::stringstream();
   {
-    paddle::recordio::Writer writer(
-        stream, paddle::recordio::Compressor::kNoCompress, 2 /*max chunk num*/);
+    paddle::fluid::recordio::Writer writer(
+        stream, paddle::fluid::recordio::Compressor::kNoCompress, 2 /*max chunk num*/);
     writer.Write("ABC");
     writer.Write("BCD");
     writer.Write("CDE");
@@ -59,7 +59,7 @@ TEST(WriterScanner, TinyChunk) {
   {
     stream->seekg(0, std::ios::beg);
     std::unique_ptr<std::istream> stream_ptr(stream);
-    paddle::recordio::Scanner scanner(std::move(stream_ptr));
+    paddle::fluid::recordio::Scanner scanner(std::move(stream_ptr));
     ASSERT_TRUE(scanner.HasNext());
     ASSERT_EQ(scanner.Next(), "ABC");
     ASSERT_EQ(scanner.Next(), "BCD");

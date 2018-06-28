@@ -19,7 +19,7 @@
 #include "paddle/fluid/framework/variable.h"
 
 TEST(Variable, GetMutable) {
-  using paddle::framework::Variable;
+  using paddle::fluid::framework::Variable;
 
   struct Tensor {
     int content_;

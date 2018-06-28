@@ -16,6 +16,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/device_context.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 template <typename DeviceContext>
@@ -82,4 +83,5 @@ struct ForRange<CUDADeviceContext> {
 #endif
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

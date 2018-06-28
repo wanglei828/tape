@@ -15,6 +15,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/dynload/warpctc.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -27,4 +28,5 @@ WARPCTC_ROUTINE_EACH(DEFINE_WRAP);
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

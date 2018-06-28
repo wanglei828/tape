@@ -20,47 +20,47 @@ limitations under the License. */
 TEST(Accelerator, Constructor) {
   // Test no exceptions.
   {
-    paddle::framework::Accelerator a("plain");
+    paddle::fluid::framework::Accelerator a("plain");
   }
   {
-     paddle::framework::Accelerator a("cuDNN");
+     paddle::fluid::framework::Accelerator a("cuDNN");
   }
   {
-    paddle::framework::Accelerator a("Mkldnn");
+    paddle::fluid::framework::Accelerator a("Mkldnn");
   }
 }
 
 TEST(Accelerator, ToString) {
   // Test no exceptions.
   {
-    paddle::framework::Accelerator a("plain");
+    paddle::fluid::framework::Accelerator a("plain");
     EXPECT_EQ(a.ToString(), "PLAIN");
   }
   {
-    paddle::framework::Accelerator a("cuDNN");
+    paddle::fluid::framework::Accelerator a("cuDNN");
     EXPECT_EQ(a.ToString(), "CUDNN");
   }
   {
-    paddle::framework::Accelerator a("Mkldnn");
+    paddle::fluid::framework::Accelerator a("Mkldnn");
     EXPECT_EQ(a.ToString(), "MKLDNN");
   }
 }
 
 TEST(Accelerator, StreamOutput) {
   {
-    paddle::framework::Accelerator a("plain");
+    paddle::fluid::framework::Accelerator a("plain");
     std::stringstream ss;
     ss << a;
     EXPECT_EQ(ss.str(), "PLAIN");
   }
   {
-    paddle::framework::Accelerator a("cuDNN");
+    paddle::fluid::framework::Accelerator a("cuDNN");
     std::stringstream ss;
     ss << a;
     EXPECT_EQ(ss.str(), "CUDNN");
   }
   {
-    paddle::framework::Accelerator a("Mkldnn");
+    paddle::fluid::framework::Accelerator a("Mkldnn");
     std::stringstream ss;
     ss << a;
     EXPECT_EQ(ss.str(), "MKLDNN");

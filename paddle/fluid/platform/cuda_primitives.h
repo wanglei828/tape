@@ -16,6 +16,7 @@ limitations under the License. */
 #include <cuda.h>
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 #define CUDA_ATOMIC_WRAPPER(op, T) \
@@ -66,4 +67,5 @@ CUDA_ATOMIC_WRAPPER(Add, double) {
 }
 #endif
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

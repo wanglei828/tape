@@ -17,8 +17,8 @@ limitations under the License. */
 #include "paddle/fluid/platform/enforce.h"
 #include "paddle/fluid/string/piece.h"
 
-using StringPiece = paddle::string::Piece;
-using paddle::string::HasPrefix;
+using StringPiece = paddle::fluid::string::Piece;
+using paddle::fluid::string::HasPrefix;
 
 TEST(ENFORCE, OK) {
   PADDLE_ENFORCE(true, "Enforce is ok %d now %f", 123, 0.345);
@@ -31,7 +31,7 @@ TEST(ENFORCE, FAILED) {
   bool caught_exception = false;
   try {
     PADDLE_ENFORCE(false, "Enforce is not ok %d at all", 123);
-  } catch (paddle::platform::EnforceNotMet error) {
+  } catch (paddle::fluid::platform::EnforceNotMet error) {
     caught_exception = true;
     EXPECT_TRUE(
         HasPrefix(StringPiece(error.what()), "Enforce is not ok 123 at all"));
@@ -52,7 +52,7 @@ TEST(ENFORCE_EQ, NO_EXTRA_MSG_FAIL) {
   bool caught_exception = false;
   try {
     PADDLE_ENFORCE_EQ(a, 1 + 3);
-  } catch (paddle::platform::EnforceNotMet error) {
+  } catch (paddle::fluid::platform::EnforceNotMet error) {
     caught_exception = true;
     HasPrefix(StringPiece(error.what()), "enforce a == 1 + 3 failed, 2 != 4");
   }
@@ -64,7 +64,7 @@ TEST(ENFORCE_EQ, EXTRA_MSG_FAIL) {
   bool caught_exception = false;
   try {
     PADDLE_ENFORCE_EQ(a, 1 + 3, "%s size not match", "their");
-  } catch (paddle::platform::EnforceNotMet error) {
+  } catch (paddle::fluid::platform::EnforceNotMet error) {
     caught_exception = true;
     HasPrefix(StringPiece(error.what()),
               "enforce a == 1 + 3 failed, 2 != 4\ntheir size not match");
@@ -82,7 +82,7 @@ TEST(ENFORCE_NE, FAIL) {
   try {
     // 2UL here to check data type compatible
     PADDLE_ENFORCE_NE(1.0, 1UL);
-  } catch (paddle::platform::EnforceNotMet error) {
+  } catch (paddle::fluid::platform::EnforceNotMet error) {
     caught_exception = true;
     EXPECT_TRUE(HasPrefix(StringPiece(error.what()),
                           "enforce 1.0 != 1UL failed, 1 == 1"))
@@ -96,7 +96,7 @@ TEST(ENFORCE_GT, FAIL) {
   bool caught_exception = false;
   try {
     PADDLE_ENFORCE_GT(1, 2UL);
-  } catch (paddle::platform::EnforceNotMet error) {
+  } catch (paddle::fluid::platform::EnforceNotMet error) {
     caught_exception = true;
     EXPECT_TRUE(
         HasPrefix(StringPiece(error.what()), "enforce 1 > 2UL failed, 1 <= 2"));
@@ -114,7 +114,7 @@ TEST(ENFORCE_GE, FAIL) {
   bool caught_exception = false;
   try {
     PADDLE_ENFORCE_GE(1, 2UL);
-  } catch (paddle::platform::EnforceNotMet error) {
+  } catch (paddle::fluid::platform::EnforceNotMet error) {
     caught_exception = true;
     EXPECT_TRUE(
         HasPrefix(StringPiece(error.what()), "enforce 1 >= 2UL failed, 1 < 2"));
@@ -133,7 +133,7 @@ TEST(ENFORCE_LE, FAIL) {
   bool caught_exception = false;
   try {
     PADDLE_ENFORCE_GT(1, 2UL);
-  } catch (paddle::platform::EnforceNotMet error) {
+  } catch (paddle::fluid::platform::EnforceNotMet error) {
     caught_exception = true;
     EXPECT_TRUE(
         HasPrefix(StringPiece(error.what()), "enforce 1 > 2UL failed, 1 <= 2"));
@@ -150,7 +150,7 @@ TEST(ENFORCE_LT, FAIL) {
   bool caught_exception = false;
   try {
     PADDLE_ENFORCE_LT(1UL, 0.12);
-  } catch (paddle::platform::EnforceNotMet error) {
+  } catch (paddle::fluid::platform::EnforceNotMet error) {
     caught_exception = true;
     EXPECT_TRUE(HasPrefix(StringPiece(error.what()),
                           "enforce 1UL < 0.12 failed, 1 >= 0.12"));
@@ -168,7 +168,7 @@ TEST(ENFORCE_NOT_NULL, FAIL) {
   try {
     int* a = nullptr;
     PADDLE_ENFORCE_NOT_NULL(a);
-  } catch (paddle::platform::EnforceNotMet error) {
+  } catch (paddle::fluid::platform::EnforceNotMet error) {
     caught_exception = true;
     EXPECT_TRUE(HasPrefix(StringPiece(error.what()), "a should not be null"));
   }
@@ -208,5 +208,5 @@ TEST(ENFORCE_USER_DEFINED_CLASS, EQ) {
 
 TEST(ENFORCE_USER_DEFINED_CLASS, NE) {
   Dims a{{1, 2, 3, 4}}, b{{5, 6, 7, 8}};
-  ASSERT_THROW(PADDLE_ENFORCE_EQ(a, b), paddle::platform::EnforceNotMet);
+  ASSERT_THROW(PADDLE_ENFORCE_EQ(a, b), paddle::fluid::platform::EnforceNotMet);
 }

@@ -17,6 +17,7 @@ limitations under the License. */
 #include <cstring>  // for memcpy
 
 namespace paddle {
+namespace fluid {
 namespace memory {
 
 template <>
@@ -152,4 +153,5 @@ void Copy<platform::CUDAPlace, platform::CUDAPinnedPlace>(
 #endif
 
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

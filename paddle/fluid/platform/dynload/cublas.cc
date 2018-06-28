@@ -15,6 +15,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/dynload/cublas.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 std::once_flag cublas_dso_flag;
@@ -34,4 +35,5 @@ CUBLAS_BLAS_ROUTINE_EACH_R3(DEFINE_WRAP);
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

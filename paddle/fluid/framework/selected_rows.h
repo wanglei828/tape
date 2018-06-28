@@ -25,6 +25,7 @@ limitations under the License. */
 #include "paddle/fluid/memory/memcpy.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 class SelectedRows {
@@ -143,4 +144,5 @@ void DeserializeFromStream(std::istream& is, SelectedRows* selected_rows,
                            const platform::DeviceContext& dev_ctx);
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

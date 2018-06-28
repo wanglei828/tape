@@ -35,7 +35,7 @@ __global__ void Kernel(T* output, int dim) {
 template <typename Place>
 float test_pinned_memory() {
   Place cpu_place;
-  paddle::platform::CUDAPlace cuda_place;
+  paddle::fluid::platform::CUDAPlace cuda_place;
 
   const int data_size = 4096;
   const int iteration = 10;
@@ -63,11 +63,11 @@ float test_pinned_memory() {
     cudaEventCreateWithFlags(&record_event[j], cudaEventDisableTiming);
     cudaEventCreate(&(record_event[j]));
     input_pinned_mem[j] = static_cast<float*>(
-        paddle::memory::Alloc(cpu_place, data_size * sizeof(float)));
+        paddle::fluid::memory::Alloc(cpu_place, data_size * sizeof(float)));
     output_pinned_mem[j] = static_cast<float*>(
-        paddle::memory::Alloc(cpu_place, data_size * sizeof(float)));
+        paddle::fluid::memory::Alloc(cpu_place, data_size * sizeof(float)));
     gpu_mem[j] = static_cast<float*>(
-        paddle::memory::Alloc(cuda_place, data_size * sizeof(float)));
+        paddle::fluid::memory::Alloc(cuda_place, data_size * sizeof(float)));
 
     for (int k = 0; k < data_size; ++k) {
       input_pinned_mem[j][k] = k;
@@ -81,7 +81,7 @@ float test_pinned_memory() {
     for (int i = 0; i < iteration; ++i) {
       // cpu -> GPU on computation stream.
       // note: this operation is async for pinned memory.
-      paddle::memory::Copy(cuda_place,
+      paddle::fluid::memory::Copy(cuda_place,
                            gpu_mem[i],
                            cpu_place,
                            input_pinned_mem[i],
@@ -100,7 +100,7 @@ float test_pinned_memory() {
 
       // copy data GPU->CPU, on copy stream.
       // note: this operation is async for pinned memory.
-      paddle::memory::Copy(cpu_place,
+      paddle::fluid::memory::Copy(cpu_place,
                            output_pinned_mem[i],
                            cuda_place,
                            gpu_mem[i],
@@ -135,9 +135,9 @@ float test_pinned_memory() {
   cudaEventDestroy(stop_e);
   for (int j = 0; j < 10; ++j) {
     cudaEventDestroy((record_event[j]));
-    paddle::memory::Free(cpu_place, input_pinned_mem[j]);
-    paddle::memory::Free(cpu_place, output_pinned_mem[j]);
-    paddle::memory::Free(cuda_place, gpu_mem[j]);
+    paddle::fluid::memory::Free(cpu_place, input_pinned_mem[j]);
+    paddle::fluid::memory::Free(cpu_place, output_pinned_mem[j]);
+    paddle::fluid::memory::Free(cuda_place, gpu_mem[j]);
   }
   return elapsedTime / 30;
 }
@@ -146,7 +146,7 @@ TEST(CPUANDCUDAPinned, CPUAllocatorAndCUDAPinnedAllocator) {
   // Generally speaking, operation on pinned_memory is faster than that on
   // unpinned-memory, but if this unit test fails frequently, please close this
   // test for the time being.
-  float time1 = test_pinned_memory<paddle::platform::CPUPlace>();
-  float time2 = test_pinned_memory<paddle::platform::CUDAPinnedPlace>();
+  float time1 = test_pinned_memory<paddle::fluid::platform::CPUPlace>();
+  float time2 = test_pinned_memory<paddle::fluid::platform::CUDAPinnedPlace>();
   EXPECT_GT(time1, time2);
 }

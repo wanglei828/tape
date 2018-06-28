@@ -32,6 +32,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/place.h"
 
 namespace paddle {
+namespace fluid {
 
 namespace recordio {
 class Writer;
@@ -240,4 +241,5 @@ LoD ConvertToLengthBasedLoD(const LoD& offset_lod);
 LoD ConvertToOffsetBasedLoD(const LoD& length_lod);
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

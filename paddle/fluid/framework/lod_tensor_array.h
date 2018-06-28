@@ -17,7 +17,9 @@ limitations under the License. */
 #include "paddle/fluid/framework/lod_tensor.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 using LoDTensorArray = std::vector<LoDTensor>;
-}
+} // namespace framework
+} // namespace fluid
 }  // namespace paddle

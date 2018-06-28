@@ -18,6 +18,7 @@
 #include <string>
 
 namespace paddle {
+namespace fluid {
 namespace string {
 
 // Piece points into a std::string object but doesn't own the
@@ -102,4 +103,5 @@ Piece SubStr(Piece s, size_t pos, size_t n);
 std::ostream& operator<<(std::ostream& o, Piece piece);
 
 }  // namespace string
+}  // namespace fluid
 }  // namespace paddle

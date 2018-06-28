@@ -16,6 +16,7 @@ limitations under the License. */
 #include <cuda.h>
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 #if CUDA_VERSION < 9000
@@ -81,4 +82,5 @@ __device__ T reduceSum(T val, int tid, int len) {
 }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

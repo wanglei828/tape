@@ -110,6 +110,7 @@ limitations under the License. */
 
 #ifdef PADDLE_CUDA_FP16
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 #if CUDA_VERSION < 9000
@@ -242,5 +243,6 @@ TEST(float16, lod_tensor_on_gpu) {
 }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle
 #endif  // PADDLE_CUDA_FP16

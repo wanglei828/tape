@@ -16,6 +16,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/assert.h"
 
 namespace paddle {
+namespace fluid {
 namespace memory {
 namespace detail {
 
@@ -163,4 +164,5 @@ MemoryBlock* MemoryBlock::metadata() const {
 
 }  // namespace detail
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

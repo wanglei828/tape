@@ -15,6 +15,7 @@ limitations under the License. */
 #include "paddle/fluid/framework/selected_rows.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 struct ReAllocateVisitor {
@@ -183,4 +184,5 @@ bool SelectedRows::Set(int64_t key, const framework::Tensor& value) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

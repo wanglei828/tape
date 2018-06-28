@@ -23,6 +23,7 @@ limitations under the License. */
 #include "thrust/device_ptr.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace details {
 
@@ -68,4 +69,5 @@ auto CastToCUDATransformIterator(T t) ->
 
 }  // namespace details
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

@@ -29,6 +29,7 @@ limitations under the License. */
 #endif
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 // Transform applys a unary or a binary functor on each element in a
@@ -107,4 +108,5 @@ struct Transform<platform::CUDADeviceContext> {
 #endif
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

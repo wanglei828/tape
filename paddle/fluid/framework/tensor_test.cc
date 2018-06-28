@@ -16,8 +16,8 @@
 #include <gtest/gtest.h>
 #include <string>
 
-namespace framework = paddle::framework;
-namespace platform = paddle::platform;
+namespace framework = paddle::fluid::framework;
+namespace platform = paddle::fluid::platform;
 
 TEST(Tensor, Dims) {
   framework::Tensor tt;
@@ -112,7 +112,7 @@ TEST(Tensor, ShareDataWith) {
     bool caught = false;
     try {
       dst_tensor.ShareDataWith(src_tensor);
-    } catch (paddle::platform::EnforceNotMet err) {
+    } catch (paddle::fluid::platform::EnforceNotMet err) {
       caught = true;
       std::string msg =
           "holder_ should not be null\nTensor holds no memory. Call "

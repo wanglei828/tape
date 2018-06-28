@@ -21,6 +21,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 namespace {
@@ -52,4 +53,5 @@ std::ostream& operator<<(std::ostream& out, Accelerator l) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

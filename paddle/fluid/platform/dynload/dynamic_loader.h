@@ -15,6 +15,7 @@ limitations under the License. */
 #pragma once
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -29,4 +30,5 @@ void* GetTensorRtDsoHandle();
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

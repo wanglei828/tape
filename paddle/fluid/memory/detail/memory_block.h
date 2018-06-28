@@ -17,6 +17,7 @@ limitations under the License. */
 #include <unordered_map>
 
 namespace paddle {
+namespace fluid {
 namespace memory {
 namespace detail {
 
@@ -135,4 +136,5 @@ class MetadataCache {
 
 }  // namespace detail
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

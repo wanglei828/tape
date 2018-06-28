@@ -30,14 +30,14 @@ __global__ void test(size_t* a, int size) {
 }
 
 TEST(LoD, data) {
-  paddle::framework::InitDevices(true);
+  paddle::fluid::framework::InitDevices(true);
 
-  paddle::framework::LoD lod{{0, 1, 2}};
+  paddle::fluid::framework::LoD lod{{0, 1, 2}};
   lod.push_back({0, 2, 4, 5});
   lod.push_back(std::vector<size_t>({0, 1, 6, 8, 10, 11}));
 
   auto& v = lod[0];
-  paddle::platform::CUDAPlace gpu(0);
+  paddle::fluid::platform::CUDAPlace gpu(0);
   test<<<1, 1>>>(v.CUDAMutableData(gpu), v.size());
   cudaDeviceSynchronize();
   for (size_t i = 0; i < v.size(); ++i) {
@@ -46,12 +46,12 @@ TEST(LoD, data) {
 }
 
 TEST(LoDTensor, LoDInGPU) {
-  paddle::framework::InitDevices(true);
+  paddle::fluid::framework::InitDevices(true);
 
-  paddle::framework::LoDTensor lod_tensor;
-  paddle::platform::CUDAPlace place(0);
+  paddle::fluid::framework::LoDTensor lod_tensor;
+  paddle::fluid::platform::CUDAPlace place(0);
 
-  paddle::framework::LoD src_lod;
+  paddle::fluid::framework::LoD src_lod;
   src_lod.push_back(std::vector<size_t>{0, 2, 4, 6, 8, 10, 12, 14});
 
   lod_tensor.Resize({14, 16});

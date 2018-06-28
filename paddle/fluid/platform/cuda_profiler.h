@@ -20,6 +20,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 void CudaProfilerInit(std::string output_file, std::string output_mode,
@@ -35,4 +36,5 @@ void CudaProfilerStart() { PADDLE_ENFORCE(cudaProfilerStart()); }
 void CudaProfilerStop() { PADDLE_ENFORCE(cudaProfilerStop()); }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

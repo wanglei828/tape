@@ -23,6 +23,7 @@ limitations under the License. */
 DECLARE_double(fraction_of_gpu_memory_to_use);
 
 namespace paddle {
+namespace fluid {
 namespace memory {
 
 using BuddyAllocator = detail::BuddyAllocator;
@@ -171,4 +172,5 @@ size_t memory_usage(const platform::Place& p) {
 }
 
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

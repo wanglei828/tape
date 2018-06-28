@@ -20,6 +20,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/variant.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 struct CPUPlace {
@@ -140,4 +141,5 @@ typename Visitor::result_type VisitPlace(const Place &place,
 }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

@@ -21,6 +21,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/float16.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 extern proto::VarType::Type ToDataType(std::type_index type);
@@ -66,4 +67,5 @@ inline std::ostream& operator<<(std::ostream& out,
   return out;
 }
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

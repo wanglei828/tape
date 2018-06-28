@@ -18,6 +18,7 @@ limitations under the License. */
 #include "unsupported/Eigen/CXX11/Tensor"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 // EigenDim converts paddle::platform::DDim into Eigen::DSizes.
@@ -112,4 +113,5 @@ struct EigenScalar {
 };
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

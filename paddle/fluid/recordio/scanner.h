@@ -21,6 +21,7 @@
 #include "paddle/fluid/recordio/chunk.h"
 
 namespace paddle {
+namespace fluid {
 namespace recordio {
 
 class Scanner {
@@ -40,4 +41,5 @@ class Scanner {
   ChunkParser parser_;
 };
 }  // namespace recordio
+}  // namespace fluid
 }  // namespace paddle

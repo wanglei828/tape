@@ -17,6 +17,7 @@ limitations under the License. */
 #include <stddef.h>
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 //! Get the maximum allocation size for a machine.
@@ -38,4 +39,5 @@ size_t CUDAPinnedMinChunkSize();
 size_t CUDAPinnedMaxChunkSize();
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

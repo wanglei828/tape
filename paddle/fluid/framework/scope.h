@@ -24,6 +24,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/macros.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 class Scope;
@@ -114,4 +115,5 @@ class Scope {
   mutable std::mutex mutex_;
 };
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

@@ -16,8 +16,8 @@ limitations under the License. */
 #include <gtest/gtest.h>
 
 TEST(CudnnHelper, ScopedTensorDescriptor) {
-  using paddle::platform::ScopedTensorDescriptor;
-  using paddle::platform::DataLayout;
+  using paddle::fluid::platform::ScopedTensorDescriptor;
+  using paddle::fluid::platform::DataLayout;
 
   ScopedTensorDescriptor tensor_desc;
   std::vector<int> shape = {2, 4, 6, 6};
@@ -27,7 +27,7 @@ TEST(CudnnHelper, ScopedTensorDescriptor) {
   int nd;
   std::vector<int> dims(4);
   std::vector<int> strides(4);
-  paddle::platform::dynload::cudnnGetTensorNdDescriptor(
+  paddle::fluid::platform::dynload::cudnnGetTensorNdDescriptor(
       desc, 4, &type, &nd, dims.data(), strides.data());
 
   EXPECT_EQ(nd, 4);
@@ -46,7 +46,7 @@ TEST(CudnnHelper, ScopedTensorDescriptor) {
 
   std::vector<int> dims_5d(5);
   std::vector<int> strides_5d(5);
-  paddle::platform::dynload::cudnnGetTensorNdDescriptor(
+  paddle::fluid::platform::dynload::cudnnGetTensorNdDescriptor(
       desc_5d, 5, &type, &nd, dims_5d.data(), strides_5d.data());
 
   EXPECT_EQ(nd, 5);
@@ -61,8 +61,8 @@ TEST(CudnnHelper, ScopedTensorDescriptor) {
 }
 
 TEST(CudnnHelper, ScopedFilterDescriptor) {
-  using paddle::platform::ScopedFilterDescriptor;
-  using paddle::platform::DataLayout;
+  using paddle::fluid::platform::ScopedFilterDescriptor;
+  using paddle::fluid::platform::DataLayout;
 
   ScopedFilterDescriptor filter_desc;
   std::vector<int> shape = {2, 3, 3};
@@ -72,7 +72,7 @@ TEST(CudnnHelper, ScopedFilterDescriptor) {
   int nd;
   cudnnTensorFormat_t format;
   std::vector<int> kernel(3);
-  paddle::platform::dynload::cudnnGetFilterNdDescriptor(desc, 3, &type, &format,
+  paddle::fluid::platform::dynload::cudnnGetFilterNdDescriptor(desc, 3, &type, &format,
                                                         &nd, kernel.data());
 
   EXPECT_EQ(GetCudnnTensorFormat(DataLayout::kNCHW), format);
@@ -86,7 +86,7 @@ TEST(CudnnHelper, ScopedFilterDescriptor) {
   auto desc_4d = filter_desc.descriptor<float>(DataLayout::kNCDHW, shape_4d);
 
   std::vector<int> kernel_4d(4);
-  paddle::platform::dynload::cudnnGetFilterNdDescriptor(
+  paddle::fluid::platform::dynload::cudnnGetFilterNdDescriptor(
       desc_4d, 4, &type, &format, &nd, kernel_4d.data());
 
   EXPECT_EQ(GetCudnnTensorFormat(DataLayout::kNCHW), format);
@@ -97,7 +97,7 @@ TEST(CudnnHelper, ScopedFilterDescriptor) {
 }
 
 TEST(CudnnHelper, ScopedConvolutionDescriptor) {
-  using paddle::platform::ScopedConvolutionDescriptor;
+  using paddle::fluid::platform::ScopedConvolutionDescriptor;
 
   ScopedConvolutionDescriptor conv_desc;
   std::vector<int> src_pads = {2, 2, 2};
@@ -111,7 +111,7 @@ TEST(CudnnHelper, ScopedConvolutionDescriptor) {
   std::vector<int> pads(3);
   std::vector<int> strides(3);
   std::vector<int> dilations(3);
-  paddle::platform::dynload::cudnnGetConvolutionNdDescriptor(
+  paddle::fluid::platform::dynload::cudnnGetConvolutionNdDescriptor(
       desc, 3, &nd, pads.data(), strides.data(), dilations.data(), &mode,
       &type);
 
@@ -125,8 +125,8 @@ TEST(CudnnHelper, ScopedConvolutionDescriptor) {
 }
 
 TEST(CudnnHelper, ScopedPoolingDescriptor) {
-  using paddle::platform::ScopedPoolingDescriptor;
-  using paddle::platform::PoolingMode;
+  using paddle::fluid::platform::ScopedPoolingDescriptor;
+  using paddle::fluid::platform::PoolingMode;
 
   ScopedPoolingDescriptor pool_desc;
   std::vector<int> src_kernel = {2, 2, 5};
@@ -141,7 +141,7 @@ TEST(CudnnHelper, ScopedPoolingDescriptor) {
   std::vector<int> kernel(3);
   std::vector<int> pads(3);
   std::vector<int> strides(3);
-  paddle::platform::dynload::cudnnGetPoolingNdDescriptor(
+  paddle::fluid::platform::dynload::cudnnGetPoolingNdDescriptor(
       desc, 3, &mode, &nan_t, &nd, kernel.data(), pads.data(), strides.data());
 
   EXPECT_EQ(nd, 3);

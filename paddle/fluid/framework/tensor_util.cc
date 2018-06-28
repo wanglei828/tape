@@ -17,6 +17,7 @@
 #include <vector>
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 void TensorCopy(const Tensor& src, const platform::Place& dst_place,
@@ -339,4 +340,5 @@ void TensorFromStream(std::istream& is, Tensor* tensor,
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

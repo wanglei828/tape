@@ -15,6 +15,7 @@
 #include "paddle/fluid/platform/dynload/tensorrt.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -27,4 +28,5 @@ TENSORRT_RAND_ROUTINE_EACH(DEFINE_WRAP);
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

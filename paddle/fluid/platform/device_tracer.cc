@@ -28,6 +28,7 @@ limitations under the License. */
 #include "paddle/fluid/string/printf.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace {
 // Current thread's id. Note, we don't distinguish nested threads
@@ -421,4 +422,5 @@ void ClearCurThread() { cur_thread_id = 0; }
 int CurThread() { return cur_thread_id; }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

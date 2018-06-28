@@ -17,6 +17,7 @@
 
 #include "paddle/fluid/recordio/chunk.h"
 namespace paddle {
+namespace fluid {
 namespace recordio {
 
 class Writer {
@@ -41,4 +42,5 @@ class Writer {
 };
 
 }  // namespace recordio
+}  // namespace fluid
 }  // namespace paddle

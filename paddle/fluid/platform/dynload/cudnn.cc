@@ -16,6 +16,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 std::once_flag cudnn_dso_flag;
@@ -60,4 +61,5 @@ bool HasCUDNN() { return true; }
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

@@ -19,6 +19,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/place.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 using MKLDNNStream = mkldnn::stream;
@@ -106,4 +107,5 @@ inline mkldnn::memory::format GetMKLDNNFormat(
 }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

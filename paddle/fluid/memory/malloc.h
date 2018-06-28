@@ -17,6 +17,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/place.h"
 
 namespace paddle {
+namespace fluid {
 namespace memory {
 
 /**
@@ -101,4 +102,5 @@ class PlainDeleter {
 };
 
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

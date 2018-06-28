@@ -24,6 +24,7 @@
 #include "paddle/fluid/recordio/writer.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 TEST(LoD, PrintLoDTensor) {
@@ -77,7 +78,7 @@ TEST(LoD, GetFineGrainedLoDLength) {
       std::vector<size_t>({0, 2, 5, 7, 10, 12, 15, 17, 20, 24, 26, 29}));
 
   auto lod_and_offset =
-      paddle::framework::GetSubLoDAndAbsoluteOffset(lod, 1, 2, 0);
+      paddle::fluid::framework::GetSubLoDAndAbsoluteOffset(lod, 1, 2, 0);
   LoD lod_length = lod_and_offset.first;
   size_t start_offset = lod_and_offset.second.first;
   size_t end_offset = lod_and_offset.second.second;
@@ -102,7 +103,7 @@ TEST(LoD, AppendLoD) {
   origin.push_back(std::vector<size_t>({0, 1, 6}));
   origin.push_back(std::vector<size_t>({0, 2, 5, 7, 10, 12, 15}));
 
-  paddle::framework::AppendLoD(&origin, lod_lens);
+  paddle::fluid::framework::AppendLoD(&origin, lod_lens);
 
   LoD expected;
   expected.push_back(std::vector<size_t>({0, 2, 4}));
@@ -118,7 +119,7 @@ TEST(LoD, ToAbsOffset) {
   relative_lod.push_back(std::vector<size_t>({0, 1, 3}));
   relative_lod.push_back(std::vector<size_t>({0, 2, 4, 5}));
 
-  LoD abs_lod = paddle::framework::ToAbsOffset(relative_lod);
+  LoD abs_lod = paddle::fluid::framework::ToAbsOffset(relative_lod);
 
   LoD expected;
   expected.push_back(std::vector<size_t>({0, 5}));
@@ -321,4 +322,5 @@ TEST(LoDTensor, RecordIO) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

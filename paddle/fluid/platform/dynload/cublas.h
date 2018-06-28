@@ -23,6 +23,7 @@
 #include "paddle/fluid/platform/dynload/dynamic_loader.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -43,7 +44,7 @@ extern void *cublas_dso_handle;
     template <typename... Args>                                              \
     inline cublasStatus_t operator()(Args... args) {                         \
       std::call_once(cublas_dso_flag, []() {                                 \
-        cublas_dso_handle = paddle::platform::dynload::GetCublasDsoHandle(); \
+        cublas_dso_handle = paddle::fluid::platform::dynload::GetCublasDsoHandle(); \
       });                                                                    \
       static void *p_##__name = dlsym(cublas_dso_handle, #__name);           \
       return reinterpret_cast<FUNC_TYPE>(p_##__name)(args...);               \
@@ -114,4 +115,5 @@ CUBLAS_BLAS_ROUTINE_EACH_R3(DECLARE_DYNAMIC_LOAD_CUBLAS_WRAP)
 #undef DECLARE_DYNAMIC_LOAD_CUBLAS_WRAP
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

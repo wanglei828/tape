@@ -17,6 +17,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/assert.h"
 
 namespace paddle {
+namespace fluid {
 namespace memory {
 namespace detail {
 
@@ -55,4 +56,5 @@ void MetadataCache::invalidate(MemoryBlock* block) {
 
 }  // namespace detail
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

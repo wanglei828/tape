@@ -15,6 +15,7 @@ limitations under the License. */
 #include "paddle/fluid/framework/tensor.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 extern size_t SizeOfType(std::type_index type);
 void Tensor::check_memory_size() const {
@@ -113,4 +114,5 @@ const DDim& Tensor::dims() const { return dims_; }
 
 int64_t Tensor::numel() const { return product(dims_); }
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

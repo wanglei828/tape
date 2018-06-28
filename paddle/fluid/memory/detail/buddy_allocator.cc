@@ -16,6 +16,7 @@ limitations under the License. */
 #include "glog/logging.h"
 
 namespace paddle {
+namespace fluid {
 namespace memory {
 namespace detail {
 
@@ -333,4 +334,5 @@ void BuddyAllocator::CleanIdleNormalAlloc() {
 
 }  // namespace detail
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

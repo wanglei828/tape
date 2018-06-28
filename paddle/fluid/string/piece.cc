@@ -21,6 +21,7 @@
 #include <stdexcept>
 
 namespace paddle {
+namespace fluid {
 namespace string {
 
 Piece::Piece() : data_(NULL), size_(0) {}
@@ -133,4 +134,5 @@ std::ostream& operator<<(std::ostream& o, Piece piece) {
 }
 
 }  // namespace string
+}  // namespace fluid
 }  // namespace paddle

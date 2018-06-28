@@ -16,6 +16,7 @@
 #include <gtest/gtest.h>
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 TEST(EigenDim, From) {
@@ -129,4 +130,5 @@ TEST(Eigen, MatrixReshape) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

@@ -16,8 +16,8 @@ limitations under the License. */
 #include "glog/logging.h"
 #include "gtest/gtest.h"
 
-using paddle::framework::Scope;
-using paddle::framework::Variable;
+using paddle::fluid::framework::Scope;
+using paddle::fluid::framework::Variable;
 
 TEST(Scope, VarsShadowing) {
   Scope s;

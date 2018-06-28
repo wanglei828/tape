@@ -22,6 +22,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -37,7 +38,7 @@ extern void* tensorrt_dso_handle;
       using tensorrt_func = decltype(__name(args...)) (*)(Args...);     \
       std::call_once(tensorrt_dso_flag, []() {                          \
         tensorrt_dso_handle =                                           \
-            paddle::platform::dynload::GetTensorRtDsoHandle();          \
+            paddle::fluid::platform::dynload::GetTensorRtDsoHandle();          \
         PADDLE_ENFORCE(tensorrt_dso_handle, "load tensorrt so failed"); \
       });                                                               \
       static void* p_##__name = dlsym(tensorrt_dso_handle, #__name);    \
@@ -66,4 +67,5 @@ TENSORRT_RAND_ROUTINE_EACH(DECLARE_DYNAMIC_LOAD_TENSORRT_WRAP)
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

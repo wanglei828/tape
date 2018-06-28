@@ -15,6 +15,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/place.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 namespace detail {
@@ -78,4 +79,5 @@ std::ostream &operator<<(std::ostream &os, const Place &p) {
 }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

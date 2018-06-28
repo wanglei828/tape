@@ -25,6 +25,7 @@
 #define NCCL_ID_VARNAME "NCCLID"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 inline ncclDataType_t ToNCCLDataType(std::type_index type) {
@@ -149,4 +150,5 @@ struct NCCLContextMap {
 };
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

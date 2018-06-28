@@ -134,6 +134,7 @@
 #include <sstream>
 
 namespace paddle {
+namespace fluid {
 namespace string {
 namespace tinyformat {
 
@@ -889,4 +890,5 @@ void printfln(const char *fmt, const Args &... args) {
 
 }  // namespace tinyformat
 }  // namespace string
+}  // namespace fluid
 }  // namespace paddle

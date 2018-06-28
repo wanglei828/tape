@@ -32,6 +32,7 @@ limitations under the License. */
 DEFINE_bool(use_pinned_memory, true, "If set, allocate cpu pinned memory.");
 DECLARE_double(fraction_of_gpu_memory_to_use);
 namespace paddle {
+namespace fluid {
 namespace memory {
 namespace detail {
 
@@ -142,7 +143,7 @@ void* CUDAPinnedAllocator::Alloc(size_t* index, size_t size) {
   // of host pinned allocation. Allocates too much would reduce
   // the amount of memory available to the underlying system for paging.
   size_t usable =
-      paddle::platform::CUDAPinnedMaxAllocSize() - cuda_pinnd_alloc_size_;
+      paddle::fluid::platform::CUDAPinnedMaxAllocSize() - cuda_pinnd_alloc_size_;
 
   if (size > usable) {
     LOG(WARNING) << "Cannot malloc " << size / 1024.0 / 1024.0
@@ -191,4 +192,5 @@ bool CUDAPinnedAllocator::UseGpu() const { return false; }
 
 }  // namespace detail
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

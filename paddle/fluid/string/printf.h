@@ -76,6 +76,7 @@
 #include "tinyformat/tinyformat.h"  // https://github.com/c42f/tinyformat
 
 namespace paddle {
+namespace fluid {
 namespace string {
 
 template <typename... Args>
@@ -96,4 +97,5 @@ void Printf(const char* fmt, const Args&... args) {
 }
 
 }  // namespace string
+}  // namespace fluid
 }  // namespace paddle

@@ -21,6 +21,7 @@ limitations under the License. */
 #include "warpctc/include/ctc.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -38,7 +39,7 @@ extern void* warpctc_dso_handle;
     auto operator()(Args... args) -> decltype(__name(args...)) {               \
       using warpctcFunc = decltype(&::__name);                                 \
       std::call_once(warpctc_dso_flag, []() {                                  \
-        warpctc_dso_handle = paddle::platform::dynload::GetWarpCTCDsoHandle(); \
+        warpctc_dso_handle = paddle::fluid::platform::dynload::GetWarpCTCDsoHandle(); \
       });                                                                      \
       static void* p_##_name = dlsym(warpctc_dso_handle, #__name);             \
       return reinterpret_cast<warpctcFunc>(p_##_name)(args...);                \
@@ -61,4 +62,5 @@ WARPCTC_ROUTINE_EACH(DECLARE_DYNAMIC_LOAD_WARPCTC_WRAP);
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

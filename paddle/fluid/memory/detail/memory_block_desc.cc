@@ -17,6 +17,7 @@ limitations under the License. */
 #include "paddle/fluid/memory/detail/memory_block.h"
 
 namespace paddle {
+namespace fluid {
 namespace memory {
 namespace detail {
 
@@ -75,4 +76,5 @@ bool MemoryBlock::Desc::check_guards() const {
 
 }  // namespace detail
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

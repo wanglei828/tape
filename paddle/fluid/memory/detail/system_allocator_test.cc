@@ -22,7 +22,7 @@ limitations under the License. */
 
 DECLARE_bool(use_pinned_memory);
 
-void TestAllocator(paddle::memory::detail::SystemAllocator* a, size_t size) {
+void TestAllocator(paddle::fluid::memory::detail::SystemAllocator* a, size_t size) {
   bool freed = false;
   {
     size_t index;
@@ -44,21 +44,21 @@ void TestAllocator(paddle::memory::detail::SystemAllocator* a, size_t size) {
 
 TEST(CPUAllocator, NoLockMem) {
   FLAGS_use_pinned_memory = false;
-  paddle::memory::detail::CPUAllocator a;
+  paddle::fluid::memory::detail::CPUAllocator a;
   TestAllocator(&a, 2048);
   TestAllocator(&a, 0);
 }
 
 TEST(CPUAllocator, LockMem) {
   FLAGS_use_pinned_memory = true;
-  paddle::memory::detail::CPUAllocator a;
+  paddle::fluid::memory::detail::CPUAllocator a;
   TestAllocator(&a, 2048);
   TestAllocator(&a, 0);
 }
 
 #ifdef PADDLE_WITH_CUDA
 TEST(GPUAllocator, Alloc) {
-  paddle::memory::detail::GPUAllocator a(0);
+  paddle::fluid::memory::detail::GPUAllocator a(0);
   TestAllocator(&a, 2048);
   TestAllocator(&a, 0);
 }

@@ -21,6 +21,7 @@
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 class Variable {
@@ -93,4 +94,5 @@ class Variable {
 };
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

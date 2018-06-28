@@ -18,6 +18,7 @@
 #include <unordered_map>
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 struct DataTypeMap {
@@ -102,4 +103,5 @@ size_t SizeOfType(std::type_index type) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

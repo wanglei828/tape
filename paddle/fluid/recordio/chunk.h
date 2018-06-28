@@ -21,6 +21,7 @@
 #include "paddle/fluid/recordio/header.h"
 
 namespace paddle {
+namespace fluid {
 namespace recordio {
 
 // A Chunk contains the Header and optionally compressed records.
@@ -70,4 +71,5 @@ class ChunkParser {
 };
 
 }  // namespace recordio
+}  // namespace fluid
 }  // namespace paddle

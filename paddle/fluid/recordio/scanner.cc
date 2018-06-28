@@ -19,6 +19,7 @@
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace recordio {
 
 Scanner::Scanner(std::unique_ptr<std::istream> &&stream)
@@ -51,4 +52,5 @@ std::string Scanner::Next() {
 
 bool Scanner::HasNext() const { return !stream_->eof(); }
 }  // namespace recordio
+}  // namespace fluid
 }  // namespace paddle

@@ -21,6 +21,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 namespace {
@@ -50,4 +51,5 @@ std::ostream& operator<<(std::ostream& out, const TensorDataLayout& l) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

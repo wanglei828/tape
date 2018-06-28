@@ -13,6 +13,7 @@ limitations under the License. */
 #include "gtest/gtest.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 class SelectedRowsTester : public ::testing::Test {
@@ -95,4 +96,5 @@ TEST_F(SelectedRowsTester, SparseTable) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

@@ -38,16 +38,16 @@ class Multiply {
 
 }  // namespace
 
-using paddle::memory::Alloc;
-using paddle::memory::Free;
-using paddle::memory::Copy;
+using paddle::fluid::memory::Alloc;
+using paddle::fluid::memory::Free;
+using paddle::fluid::memory::Copy;
 
-using paddle::platform::CPUPlace;
-using paddle::platform::CUDAPlace;
-using paddle::platform::CPUDeviceContext;
-using paddle::platform::CUDADeviceContext;
+using paddle::fluid::platform::CPUPlace;
+using paddle::fluid::platform::CUDAPlace;
+using paddle::fluid::platform::CPUDeviceContext;
+using paddle::fluid::platform::CUDADeviceContext;
 
-using paddle::platform::Transform;
+using paddle::fluid::platform::Transform;
 
 TEST(Transform, CPUUnary) {
   CPUDeviceContext ctx;

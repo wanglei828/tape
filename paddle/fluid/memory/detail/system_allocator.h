@@ -17,6 +17,7 @@ limitations under the License. */
 #include <stddef.h>  // for size_t
 
 namespace paddle {
+namespace fluid {
 namespace memory {
 namespace detail {
 
@@ -69,4 +70,5 @@ class CUDAPinnedAllocator : public SystemAllocator {
 
 }  // namespace detail
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

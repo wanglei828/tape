@@ -59,18 +59,21 @@ limitations under the License. */
 #define PADDLE_ALIGN(x) __attribute__((aligned(x)))
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 // Forward declare float16 for eigen.h
 struct float16;
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle
 
 #include "paddle/fluid/framework/eigen.h"
 #include "paddle/fluid/platform/hostdevice.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 // Use PADDLE_ALIGNED(2) to ensure that each float16 will be allocated
@@ -879,6 +882,7 @@ inline std::ostream& operator<<(std::ostream& os, const float16& a) {
 }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle
 
 namespace std {
@@ -892,14 +896,14 @@ namespace std {
 // constructor in float16. Hence, we override is_pod here following C++11
 // so that .cu files can be successfully compiled by nvcc.
 template <>
-struct is_pod<paddle::platform::float16> {
+struct is_pod<paddle::fluid::platform::float16> {
   static const bool value =
-      is_trivial<paddle::platform::float16>::value &&
-      is_standard_layout<paddle::platform::float16>::value;
+      is_trivial<paddle::fluid::platform::float16>::value &&
+      is_standard_layout<paddle::fluid::platform::float16>::value;
 };
 
 template <>
-struct numeric_limits<paddle::platform::float16> {
+struct numeric_limits<paddle::fluid::platform::float16> {
   static const bool is_specialized = true;
   static const bool is_signed = true;
   static const bool is_integer = false;
@@ -924,32 +928,32 @@ struct numeric_limits<paddle::platform::float16> {
   static const bool traps = true;
   static const bool tinyness_before = false;
 
-  static paddle::platform::float16(min)() {
-    return paddle::platform::raw_uint16_to_float16(0x400);
+  static paddle::fluid::platform::float16(min)() {
+    return paddle::fluid::platform::raw_uint16_to_float16(0x400);
   }
-  static paddle::platform::float16 lowest() {
-    return paddle::platform::raw_uint16_to_float16(0xfbff);
+  static paddle::fluid::platform::float16 lowest() {
+    return paddle::fluid::platform::raw_uint16_to_float16(0xfbff);
   }
-  static paddle::platform::float16(max)() {
-    return paddle::platform::raw_uint16_to_float16(0x7bff);
+  static paddle::fluid::platform::float16(max)() {
+    return paddle::fluid::platform::raw_uint16_to_float16(0x7bff);
   }
-  static paddle::platform::float16 epsilon() {
-    return paddle::platform::raw_uint16_to_float16(0x0800);
+  static paddle::fluid::platform::float16 epsilon() {
+    return paddle::fluid::platform::raw_uint16_to_float16(0x0800);
   }
-  static paddle::platform::float16 round_error() {
-    return paddle::platform::float16(0.5);
+  static paddle::fluid::platform::float16 round_error() {
+    return paddle::fluid::platform::float16(0.5);
   }
-  static paddle::platform::float16 infinity() {
-    return paddle::platform::raw_uint16_to_float16(0x7c00);
+  static paddle::fluid::platform::float16 infinity() {
+    return paddle::fluid::platform::raw_uint16_to_float16(0x7c00);
   }
-  static paddle::platform::float16 quiet_NaN() {
-    return paddle::platform::raw_uint16_to_float16(0x7e00);
+  static paddle::fluid::platform::float16 quiet_NaN() {
+    return paddle::fluid::platform::raw_uint16_to_float16(0x7e00);
   }
-  static paddle::platform::float16 signaling_NaN() {
-    return paddle::platform::raw_uint16_to_float16(0x7e00);
+  static paddle::fluid::platform::float16 signaling_NaN() {
+    return paddle::fluid::platform::raw_uint16_to_float16(0x7e00);
   }
-  static paddle::platform::float16 denorm_min() {
-    return paddle::platform::raw_uint16_to_float16(0x1);
+  static paddle::fluid::platform::float16 denorm_min() {
+    return paddle::fluid::platform::raw_uint16_to_float16(0x1);
   }
 };
 
@@ -957,7 +961,7 @@ struct numeric_limits<paddle::platform::float16> {
 
 namespace Eigen {
 
-using float16 = paddle::platform::float16;
+using float16 = paddle::fluid::platform::float16;
 
 template <>
 struct NumTraits<float16> : GenericNumTraits<float16> {
@@ -969,20 +973,20 @@ struct NumTraits<float16> : GenericNumTraits<float16> {
   };
 
   HOSTDEVICE static inline float16 epsilon() {
-    return paddle::platform::raw_uint16_to_float16(0x0800);
+    return paddle::fluid::platform::raw_uint16_to_float16(0x0800);
   }
   HOSTDEVICE static inline float16 dummy_precision() { return float16(1e-2f); }
   HOSTDEVICE static inline float16 highest() {
-    return paddle::platform::raw_uint16_to_float16(0x7bff);
+    return paddle::fluid::platform::raw_uint16_to_float16(0x7bff);
   }
   HOSTDEVICE static inline float16 lowest() {
-    return paddle::platform::raw_uint16_to_float16(0xfbff);
+    return paddle::fluid::platform::raw_uint16_to_float16(0xfbff);
   }
   HOSTDEVICE static inline float16 infinity() {
-    return paddle::platform::raw_uint16_to_float16(0x7c00);
+    return paddle::fluid::platform::raw_uint16_to_float16(0x7c00);
   }
   HOSTDEVICE static inline float16 quiet_NaN() {
-    return paddle::platform::raw_uint16_to_float16(0x7c01);
+    return paddle::fluid::platform::raw_uint16_to_float16(0x7c01);
   }
 };
 
@@ -990,17 +994,17 @@ namespace numext {
 
 template <>
 HOSTDEVICE inline bool(isnan)(const float16& a) {
-  return (paddle::platform::isnan)(a);
+  return (paddle::fluid::platform::isnan)(a);
 }
 
 template <>
 HOSTDEVICE inline bool(isinf)(const float16& a) {
-  return (paddle::platform::isinf)(a);
+  return (paddle::fluid::platform::isinf)(a);
 }
 
 template <>
 HOSTDEVICE inline bool(isfinite)(const float16& a) {
-  return (paddle::platform::isfinite)(a);
+  return (paddle::fluid::platform::isfinite)(a);
 }
 
 template <>

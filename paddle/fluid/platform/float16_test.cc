@@ -17,6 +17,7 @@ limitations under the License. */
 #include "paddle/fluid/framework/lod_tensor.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 TEST(float16, conversion_cpu) {

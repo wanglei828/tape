@@ -19,11 +19,11 @@ limitations under the License. */
 #include "gtest/gtest.h"
 
 TEST(Device, Init) {
-  using paddle::platform::DeviceContext;
-  using paddle::platform::CUDADeviceContext;
-  using paddle::platform::CUDAPlace;
+  using paddle::fluid::platform::DeviceContext;
+  using paddle::fluid::platform::CUDADeviceContext;
+  using paddle::fluid::platform::CUDAPlace;
 
-  int count = paddle::platform::GetCUDADeviceCount();
+  int count = paddle::fluid::platform::GetCUDADeviceCount();
   for (int i = 0; i < count; i++) {
     CUDADeviceContext* device_context = new CUDADeviceContext(CUDAPlace(i));
     Eigen::GpuDevice* gpu_device = device_context->eigen_device();
@@ -33,10 +33,10 @@ TEST(Device, Init) {
 }
 
 TEST(Device, CUDADeviceContext) {
-  using paddle::platform::CUDADeviceContext;
-  using paddle::platform::CUDAPlace;
+  using paddle::fluid::platform::CUDADeviceContext;
+  using paddle::fluid::platform::CUDAPlace;
 
-  int count = paddle::platform::GetCUDADeviceCount();
+  int count = paddle::fluid::platform::GetCUDADeviceCount();
   for (int i = 0; i < count; i++) {
     CUDADeviceContext* device_context = new CUDADeviceContext(CUDAPlace(i));
     Eigen::GpuDevice* gpu_device = device_context->eigen_device();
@@ -51,11 +51,11 @@ TEST(Device, CUDADeviceContext) {
 }
 
 TEST(Device, DeviceContextPool) {
-  using paddle::platform::DeviceContextPool;
-  using paddle::platform::CUDADeviceContext;
-  using paddle::platform::Place;
-  using paddle::platform::CPUPlace;
-  using paddle::platform::CUDAPlace;
+  using paddle::fluid::platform::DeviceContextPool;
+  using paddle::fluid::platform::CUDADeviceContext;
+  using paddle::fluid::platform::Place;
+  using paddle::fluid::platform::CPUPlace;
+  using paddle::fluid::platform::CUDAPlace;
 
   DeviceContextPool& pool = DeviceContextPool::Instance();
   auto cpu_dev_ctx1 = pool.Get(CPUPlace());
@@ -63,7 +63,7 @@ TEST(Device, DeviceContextPool) {
   ASSERT_EQ(cpu_dev_ctx2, cpu_dev_ctx1);
 
   std::vector<Place> gpu_places;
-  int count = paddle::platform::GetCUDADeviceCount();
+  int count = paddle::fluid::platform::GetCUDADeviceCount();
   for (int i = 0; i < count; ++i) {
     auto dev_ctx = pool.Get(CUDAPlace(i));
     ASSERT_NE(dev_ctx, nullptr);
@@ -71,16 +71,16 @@ TEST(Device, DeviceContextPool) {
 }
 
 int main(int argc, char** argv) {
-  std::vector<paddle::platform::Place> places;
+  std::vector<paddle::fluid::platform::Place> places;
 
-  places.emplace_back(paddle::platform::CPUPlace());
-  int count = paddle::platform::GetCUDADeviceCount();
+  places.emplace_back(paddle::fluid::platform::CPUPlace());
+  int count = paddle::fluid::platform::GetCUDADeviceCount();
   for (int i = 0; i < count; ++i) {
-    places.emplace_back(paddle::platform::CUDAPlace(i));
+    places.emplace_back(paddle::fluid::platform::CUDAPlace(i));
   }
 
   VLOG(0) << " DeviceCount " << count;
-  paddle::platform::DeviceContextPool::Init(places);
+  paddle::fluid::platform::DeviceContextPool::Init(places);
 
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

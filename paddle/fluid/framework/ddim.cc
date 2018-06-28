@@ -16,6 +16,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 /// @cond HIDDEN
@@ -327,4 +328,5 @@ DDim stride_numel(const framework::DDim& ddim) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

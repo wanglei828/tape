@@ -32,6 +32,7 @@ limitations under the License. */
 #include "paddle/fluid/string/printf.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 struct EventList;
@@ -477,4 +478,5 @@ void SetProfileListener() {
 int64_t ListenerId() { return profiler_lister_id; }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

@@ -26,7 +26,7 @@ std::ostream& operator<<(std::ostream& s, const UserDefinedClass& ins) {
 }
 
 TEST(to_string, normal) {
-  using paddle::string::to_string;
+  using paddle::fluid::string::to_string;
   ASSERT_EQ("10", to_string(10));
   ASSERT_EQ("abc", to_string("abc"));
   ASSERT_EQ("1.2", to_string(1.2));
@@ -34,5 +34,5 @@ TEST(to_string, normal) {
 
 TEST(to_string, user_defined) {
   UserDefinedClass instance;
-  ASSERT_EQ(kOutputString, paddle::string::to_string(instance));
+  ASSERT_EQ(kOutputString, paddle::fluid::string::to_string(instance));
 }

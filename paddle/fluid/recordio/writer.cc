@@ -18,6 +18,7 @@
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace recordio {
 
 void Writer::Write(const std::string& record) {
@@ -37,4 +38,5 @@ Writer::~Writer() {
 }
 
 }  // namespace recordio
+}  // namespace fluid
 }  // namespace paddle

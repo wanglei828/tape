@@ -25,6 +25,7 @@ limitations under the License. */
 DECLARE_bool(cudnn_deterministic);
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 inline const char* cudnnGetErrorString(cudnnStatus_t status) {
@@ -63,7 +64,7 @@ inline const char* cudnnGetErrorString(cudnnStatus_t status) {
   do {                                                            \
     cudnnStatus_t status = condition;                             \
     if (status != CUDNN_STATUS_SUCCESS) {                         \
-      VLOG(1) << ::paddle::platform::cudnnGetErrorString(status); \
+      VLOG(1) << ::paddle::fluid::platform::cudnnGetErrorString(status); \
       PADDLE_THROW("cuDNN call failed");                          \
     }                                                             \
   } while (false)
@@ -344,7 +345,7 @@ class ScopedPoolingDescriptor {
 
 inline bool CanCUDNNBeUsed(const framework::ExecutionContext& ctx) {
   bool use_cudnn = ctx.Attr<bool>("use_cudnn");
-  use_cudnn &= paddle::platform::is_gpu_place(ctx.GetPlace());
+  use_cudnn &= paddle::fluid::platform::is_gpu_place(ctx.GetPlace());
 #ifdef PADDLE_WITH_CUDA
   if (use_cudnn) {
     auto& dev_ctx = ctx.device_context<platform::CUDADeviceContext>();
@@ -355,4 +356,5 @@ inline bool CanCUDNNBeUsed(const framework::ExecutionContext& ctx) {
 }
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

@@ -21,6 +21,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/dynload/dynamic_loader.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 extern std::once_flag curand_dso_flag;
@@ -32,7 +33,7 @@ extern void *curand_dso_handle;
     curandStatus_t operator()(Args... args) {                                \
       using curandFunc = decltype(&::__name);                                \
       std::call_once(curand_dso_flag, []() {                                 \
-        curand_dso_handle = paddle::platform::dynload::GetCurandDsoHandle(); \
+        curand_dso_handle = paddle::fluid::platform::dynload::GetCurandDsoHandle(); \
       });                                                                    \
       static void *p_##__name = dlsym(curand_dso_handle, #__name);           \
       return reinterpret_cast<curandFunc>(p_##__name)(args...);              \
@@ -63,4 +64,5 @@ CURAND_RAND_ROUTINE_EACH(DECLARE_DYNAMIC_LOAD_CURAND_WRAP);
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

@@ -19,6 +19,7 @@ limitations under the License. */
 #include <string>
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 class TensorDataLayout {
@@ -43,4 +44,5 @@ class TensorDataLayout {
 std::ostream& operator<<(std::ostream& out, const TensorDataLayout& l);
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

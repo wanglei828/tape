@@ -50,6 +50,7 @@ limitations under the License. */
 #endif  // PADDLE_WITH_CUDA
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 #ifdef __GNUC__
@@ -201,9 +202,9 @@ inline void throw_on_error(T e) {
 
 #define PADDLE_THROW(...)                                              \
   do {                                                                 \
-    throw ::paddle::platform::EnforceNotMet(                           \
+    throw ::paddle::fluid::platform::EnforceNotMet(                           \
         std::make_exception_ptr(                                       \
-            std::runtime_error(paddle::string::Sprintf(__VA_ARGS__))), \
+            std::runtime_error(paddle::fluid::string::Sprintf(__VA_ARGS__))), \
         __FILE__,                                                      \
         __LINE__);                                                     \
   } while (false)
@@ -211,9 +212,9 @@ inline void throw_on_error(T e) {
 #define PADDLE_ENFORCE(...)                              \
   do {                                                   \
     try {                                                \
-      ::paddle::platform::throw_on_error(__VA_ARGS__);   \
+      ::paddle::fluid::platform::throw_on_error(__VA_ARGS__);   \
     } catch (...) {                                      \
-      throw ::paddle::platform::EnforceNotMet(           \
+      throw ::paddle::fluid::platform::EnforceNotMet(           \
           std::current_exception(), __FILE__, __LINE__); \
     }                                                    \
   } while (false)
@@ -247,7 +248,7 @@ inline void throw_on_error(T e) {
   do {                                                       \
     if (UNLIKELY(nullptr == (__VAL))) {                      \
       PADDLE_THROW(#__VAL " should not be null\n%s",         \
-                   paddle::string::Sprintf("" __VA_ARGS__)); \
+                   paddle::fluid::string::Sprintf("" __VA_ARGS__)); \
     }                                                        \
   } while (0)
 
@@ -258,11 +259,12 @@ inline void throw_on_error(T e) {
                    " %s\n%s",                                          \
                    #__VAL0,                                            \
                    #__VAL1,                                            \
-                   paddle::string::to_string(__VAL0),                  \
-                   paddle::string::to_string(__VAL1),                  \
-                   paddle::string::Sprintf("" __VA_ARGS__));           \
+                   paddle::fluid::string::to_string(__VAL0),                  \
+                   paddle::fluid::string::to_string(__VAL1),                  \
+                   paddle::fluid::string::Sprintf("" __VA_ARGS__));           \
     }                                                                  \
   } while (0)
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

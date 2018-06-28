@@ -17,6 +17,7 @@
 #include <sstream>
 
 namespace paddle {
+namespace fluid {
 namespace recordio {
 
 // MagicNumber for memory checking
@@ -63,4 +64,5 @@ std::ostream& operator<<(std::ostream& os, Header h);
 bool operator==(Header l, Header r);
 
 }  // namespace recordio
+}  // namespace fluid
 }  // namespace paddle

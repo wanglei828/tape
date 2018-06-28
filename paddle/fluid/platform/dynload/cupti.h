@@ -23,6 +23,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/dynload/dynamic_loader.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -43,7 +44,7 @@ extern void *cupti_dso_handle;
     inline CUptiResult CUPTIAPI operator()(Args... args) {                 \
       using cuptiFunc = decltype(&::__name);                               \
       std::call_once(cupti_dso_flag, []() {                                \
-        cupti_dso_handle = paddle::platform::dynload::GetCUPTIDsoHandle(); \
+        cupti_dso_handle = paddle::fluid::platform::dynload::GetCUPTIDsoHandle(); \
       });                                                                  \
       static void *p_##__name = dlsym(cupti_dso_handle, #__name);          \
       return reinterpret_cast<cuptiFunc>(p_##__name)(args...);             \
@@ -82,6 +83,7 @@ CUPTI_ROUTINE_EACH(DECLARE_DYNAMIC_LOAD_CUPTI_WRAP);
 #undef DECLARE_DYNAMIC_LOAD_CUPTI_WRAP
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle
 
 #endif  // PADDLE_WITH_CUPTI

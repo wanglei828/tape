@@ -18,6 +18,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/place.h"
 
 namespace paddle {
+namespace fluid {
 namespace memory {
 
 /**
@@ -59,4 +60,5 @@ void Copy(DstPlace,
 
 #endif
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

@@ -20,6 +20,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/device_context.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 enum EventType { kMark, kPushRange, kPopRange };
@@ -127,4 +128,5 @@ void SetProfileListener();
 int64_t ListenerId();
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

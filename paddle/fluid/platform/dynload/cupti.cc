@@ -18,6 +18,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/enforce.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -30,6 +31,7 @@ CUPTI_ROUTINE_EACH(DEFINE_WRAP);
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle
 
 #endif  // PADDLE_WITH_CUPTI

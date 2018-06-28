@@ -15,6 +15,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/dynload/nccl.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -27,4 +28,5 @@ NCCL_RAND_ROUTINE_EACH(DEFINE_WRAP);
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

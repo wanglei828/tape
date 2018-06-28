@@ -19,6 +19,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/float16.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 template <typename T>
 inline const T* Tensor::data() const {
@@ -66,4 +67,5 @@ inline Tensor ReshapeToMatrix(const Tensor& src, int num_col_dims) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

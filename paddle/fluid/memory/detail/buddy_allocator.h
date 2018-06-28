@@ -27,6 +27,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/gpu_info.h"
 
 namespace paddle {
+namespace fluid {
 namespace memory {
 namespace detail {
 
@@ -110,4 +111,5 @@ class BuddyAllocator {
 
 }  // namespace detail
 }  // namespace memory
+}  // namespace fluid
 }  // namespace paddle

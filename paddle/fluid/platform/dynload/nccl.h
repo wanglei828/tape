@@ -21,6 +21,7 @@ limitations under the License. */
 #include "paddle/fluid/platform/dynload/dynamic_loader.h"
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -35,7 +36,7 @@ extern void* nccl_dso_handle;
     auto operator()(Args... args) -> decltype(__name(args...)) {         \
       using nccl_func = decltype(&::__name);                             \
       std::call_once(nccl_dso_flag, []() {                               \
-        nccl_dso_handle = paddle::platform::dynload::GetNCCLDsoHandle(); \
+        nccl_dso_handle = paddle::fluid::platform::dynload::GetNCCLDsoHandle(); \
       });                                                                \
       static void* p_##__name = dlsym(nccl_dso_handle, #__name);         \
       return reinterpret_cast<nccl_func>(p_##__name)(args...);           \
@@ -73,4 +74,5 @@ NCCL_RAND_ROUTINE_EACH(DECLARE_DYNAMIC_LOAD_NCCL_WRAP)
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

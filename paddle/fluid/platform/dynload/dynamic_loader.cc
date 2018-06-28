@@ -47,6 +47,7 @@ DEFINE_string(
     "Specify path for loading tensorrt library, such as libnvinfer.so.");
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 namespace dynload {
 
@@ -192,4 +193,5 @@ void* GetTensorRtDsoHandle() {
 
 }  // namespace dynload
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle

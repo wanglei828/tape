@@ -23,6 +23,7 @@
 #include "snappystream.hpp"
 
 namespace paddle {
+namespace fluid {
 namespace recordio {
 constexpr size_t kMaxBufSize = 1024;
 
@@ -171,4 +172,5 @@ std::string ChunkParser::Next() {
   return buf;
 }
 }  // namespace recordio
+}  // namespace fluid
 }  // namespace paddle

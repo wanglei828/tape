@@ -22,6 +22,7 @@
 #include "paddle/fluid/platform/hostdevice.h"
 
 namespace paddle {
+namespace fluid {
 namespace framework {
 
 // Statically sized, statically indexed dimension
@@ -429,4 +430,5 @@ HOSTDEVICE Dim<D> linear_to_dimension(int linear_index, Dim<D> extents) {
 }
 
 }  // namespace framework
+}  // namespace fluid
 }  // namespace paddle

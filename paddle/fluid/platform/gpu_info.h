@@ -21,6 +21,7 @@ limitations under the License. */
 #include <string>
 
 namespace paddle {
+namespace fluid {
 namespace platform {
 
 //! Get the total number of GPU devices in system.
@@ -73,6 +74,7 @@ void GpuMemcpyPeerSync(void *dst, int dst_device, const void *src,
 void GpuMemsetAsync(void *dst, int value, size_t count, cudaStream_t stream);
 
 }  // namespace platform
+}  // namespace fluid
 }  // namespace paddle
 
 #endif  // #ifdef PADDLE_WITH_CUDA
