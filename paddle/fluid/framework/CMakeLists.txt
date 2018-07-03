@@ -54,6 +54,14 @@ cc_library(op_desc SRCS op_desc.cc DEPS op_proto_maker)
 
 cc_library(grad_op_desc_maker SRCS grad_op_desc_maker.cc DEPS op_desc)
 
+if(WITH_GPU)
+  nv_library(data_type_transform SRCS data_type_transform.cu DEPS tensor op_kernel_type)
+  nv_test(data_type_transform_test SRCS data_type_transform_test.cc data_type_transform_test.cu DEPS data_type_transform framework_proto tensor_data_layout accelerator)
+else()
+  cc_library(data_type_transform SRCS data_type_transform.cc DEPS tensor op_kernel_type)
+  cc_test(data_type_transform_test SRCS data_type_transform_test.cc DEPS data_type_transform framework_proto tensor_data_layout accelerator)
+endif()
+
 cc_library(reader SRCS reader.cc DEPS lod_tensor ddim)
 
-# cc_library(op_info SRCS op_info.cc DEPS attribute framework_proto)
+
