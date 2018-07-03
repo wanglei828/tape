@@ -66,4 +66,7 @@ cc_library(data_device_transform SRCS data_device_transform.cc DEPS tensor enfor
 # TODO(yi): The current unit test is too much heavier than needed and
 # is out of the scope of a "unit test". We need to write a new one.
 
+cc_library(data_layout_transform SRCS data_layout_transform.cc DEPS tensor enforce op_kernel_type device_context tensor_data_layout)
+cc_test(data_layout_transform_test SRCS data_layout_transform_test.cc DEPS data_layout_transform)
+
 cc_library(reader SRCS reader.cc DEPS lod_tensor ddim)
