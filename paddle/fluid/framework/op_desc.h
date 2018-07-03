@@ -136,6 +136,20 @@ class OpDesc {
   bool need_update_{false};
 };
 
+
+/// If a variable is a empty variable, that name will be used.
+constexpr char kEmptyVarName[] = "@EMPTY@";
+
+inline std::string TempVarName(const std::string& var_name) {
+  constexpr char kTempVarName[] = "@TEMP@";
+  return var_name + kTempVarName;
+}
+
+inline std::string GradVarName(const std::string& var_name) {
+  constexpr char kGradVarSuffix[] = "@GRAD";
+  return var_name + kGradVarSuffix;
+}
+
 }  // namespace framework
 }  // namespace fluid
 }  // namespace paddle
