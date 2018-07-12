@@ -13,4 +13,3 @@ for file in $(git diff --cached --name-status | awk '$1 != "D" {print $2}'); do
 done
 
 exit $TOTAL_ERRORS
-

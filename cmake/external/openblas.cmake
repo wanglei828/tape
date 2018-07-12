@@ -91,4 +91,3 @@ IF(NOT ${OPENBLAS_FOUND})
     LIST(APPEND external_project_dependencies cblas)
     INCLUDE_DIRECTORIES(${OPENBLAS_INC_DIR})
 ENDIF(NOT ${OPENBLAS_FOUND})
-
