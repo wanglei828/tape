@@ -85,3 +85,5 @@ cc_library(op_info SRCS op_info.cc DEPS attribute)
 
 cc_library(op_registry SRCS op_registry.cc DEPS op_proto_maker op_info operator glog op_desc)
 nv_test(op_registry_test SRCS op_registry_test.cc DEPS op_registry)
+
+cc_library(lod_rank_table SRCS lod_rank_table.cc DEPS lod_tensor)
