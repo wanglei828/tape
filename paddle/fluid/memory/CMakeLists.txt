@@ -1,10 +1,7 @@
 add_subdirectory(detail)
 
-if(WITH_GPU)
-  nv_library(malloc SRCS malloc.cc DEPS gpu_info buddy_allocator place enforce)
-else()
-  cc_library(malloc SRCS malloc.cc DEPS buddy_allocator place enforce)
-endif()
+nv_library(malloc SRCS malloc.cc DEPS gpu_info buddy_allocator place enforce)
+cc_library(malloc SRCS malloc.cc DEPS buddy_allocator place enforce)
 
 cc_library(memcpy SRCS memcpy.cc DEPS place)
 

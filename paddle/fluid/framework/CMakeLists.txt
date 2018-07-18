@@ -8,19 +8,13 @@ cc_library(data_type SRCS data_type.cc DEPS framework_proto)
 
 cc_library(tensor_data_layout SRCS tensor_data_layout.cc DEPS enforce)
 
-if(WITH_GPU)
-  nv_library(tensor SRCS tensor.cc tensor_util.cu DEPS ddim enforce tensor_data_layout place memory data_type device_context)
-else()
-  cc_library(tensor SRCS tensor.cc tensor_util.cc DEPS ddim enforce tensor_data_layout place memory data_type device_context)
-endif()
+nv_library(tensor SRCS tensor.cc tensor_util.cu DEPS ddim enforce tensor_data_layout place memory data_type device_context)
+cc_library(tensor SRCS tensor.cc tensor_util.cc DEPS ddim enforce tensor_data_layout place memory data_type device_context)
 
 cc_test(tensor_test SRCS tensor_test.cc DEPS tensor)
 
-if(WITH_GPU)
-  nv_test(tensor_util_test SRCS tensor_util_test.cc tensor_util_test.cu DEPS tensor)
-else()
-  cc_test(tensor_util_test SRCS tensor_util_test.cc DEPS tensor)
-endif()
+nv_test(tensor_util_test SRCS tensor_util_test.cc tensor_util_test.cu DEPS tensor)
+cc_test(tensor_util_test SRCS tensor_util_test.cc DEPS tensor)
 
 cc_test(eigen_test SRCS eigen_test.cc DEPS tensor)
 
@@ -55,13 +49,10 @@ cc_library(op_desc SRCS op_desc.cc DEPS op_proto_maker)
 cc_library(grad_op_desc_maker SRCS grad_op_desc_maker.cc DEPS op_desc)
 
 
-if(WITH_GPU)
-  nv_library(data_type_transform SRCS data_type_transform.cu DEPS lod_tensor op_kernel_type)
-  nv_test(data_type_transform_test SRCS data_type_transform_test.cc data_type_transform_test.cu DEPS data_type_transform framework_proto tensor_data_layout accelerator)
-else()
-  cc_library(data_type_transform SRCS data_type_transform.cc DEPS lod_tensor op_kernel_type)
-  cc_test(data_type_transform_test SRCS data_type_transform_test.cc DEPS data_type_transform framework_proto tensor_data_layout accelerator)
-endif()
+nv_library(data_type_transform SRCS data_type_transform.cu DEPS lod_tensor op_kernel_type)
+nv_test(data_type_transform_test SRCS data_type_transform_test.cc data_type_transform_test.cu DEPS data_type_transform framework_proto tensor_data_layout accelerator)
+cc_library(data_type_transform SRCS data_type_transform.cc DEPS lod_tensor op_kernel_type)
+cc_test(data_type_transform_test SRCS data_type_transform_test.cc DEPS data_type_transform framework_proto tensor_data_layout accelerator)
 
 cc_library(data_device_transform SRCS data_device_transform.cc DEPS lod_tensor enforce)
 # TODO(yi): The current unit test is too much heavier than needed and
